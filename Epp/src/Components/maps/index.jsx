@@ -71,6 +71,7 @@ function Maps() {
               latitude: endereco.lat,
               longitude: endereco.long,
             }}
+            
             pinColor={`${colors.white}`}
             key={endereco.ID}
             onPress={() => console.log(endereco.ID)}
