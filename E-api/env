@@ -1,0 +1,19 @@
+-- DATABASE
+DATABASE_URL="postgres://postgres:2003@localhost:5432/paymilhas"
+
+-- AUTHENTICATION
+ACCESS_TOKEN_SECRET=iosvvmazcfvecbirdejkspmlzilvntakquvbdrvyvvnb
+REFRESH_TOKEN_SECRET=oueoiucvkosozffoaupazjgeiatreyab
+
+-- Telegram
+TELEGRAM_BOT_KEY=1959089772:AAH1BlH9yJy_f_dvlBjlddvHdq6CK9zkAv0
+TELEGRAM_CHANNEL=-1001425848583
+
+-- EMAIL
+EMAIL_HOST=smtp.zoho.com
+EMAIL_PORT=465
+EMAIL_SECURE=true
+EMAIL_USER=moeda@moedasemente.com
+EMAIL_PASS=vaZroq-wytkaf-nasku4
+EMAIL_FROM=moedasemente@zohomail.com
+MAILER_API_KEY=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
