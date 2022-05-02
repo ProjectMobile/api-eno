@@ -3,7 +3,7 @@ import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button } from 'rea
 function PartnerScreen({navigation}) {
     return (
         <View style={styles.container}>
-            <Text>A</Text>
+            <Text>PARCEIROS</Text>
         </View>
     );
 }
