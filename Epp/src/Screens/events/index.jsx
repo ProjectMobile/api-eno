@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button } from 'react-native';
 import { getEvents } from '../../data/events'
-import { getLang } from '../../lang'
+import {useTranslation} from 'react-i18next'
 
 function EventsScreen({ navigation }) {
-
+    const {t, i18n} = useTranslation()
     const [eventos, setEventos] = useState([])
 
     useEffect(() => {
         async function fetchData() {
             const events = await getEvents();
-            const lang = await getLang();
+            const lang = i18n.language;
             var eventLanguage = []
             const eventsLLL = JSON.parse(events)
             eventsLLL.forEach(evento => {
@@ -28,13 +28,16 @@ function EventsScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text>EVENTOS</Text>
-            <View style={{ position: 'relative', width: '100%', 'height': '60%', bottom: 20 }}>
+            <Text>{t("event")}</Text>
+            <View style={{ position: 'absolute', width: '100%', 'height': '60%', bottom: 20 }}>
                 <FlatList
                     data={eventos}
                     renderItem={({ item }) => {
-                        return (
+                        return (<View style={{flexDirection:'row', borderWidth:1}}>
                             <Text>{item.name}</Text>
+                            <Text>{'                                     '}</Text>
+                            <Text>{item.language}</Text>
+                            </View>
                         )
                     }}
                     keyExtractor={eventos => eventos.id}
