@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { LoginScreen, HomeScreen, PartnerScreen,EventsScreen } from '../Screens/'
+import { LoginScreen, HomeScreen, PartnerScreen,EventsScreen, ConfigScreen } from '../Screens/'
 
 import { ShowBottomTabs } from "./BottomTabsNavigation";
 
@@ -29,6 +29,14 @@ export function PartnersNavigation() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Partners" component={PartnerScreen} />
+        </Stack.Navigator>
+    )
+}
+
+export function ConfigurationNavigation() {
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Configs" component={ConfigScreen} />
         </Stack.Navigator>
     )
 }
