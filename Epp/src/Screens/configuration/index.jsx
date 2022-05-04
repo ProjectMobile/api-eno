@@ -1,14 +1,16 @@
-import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
-import { useEffect, useState } from 'react';
-import { setEvents, getEvents } from '../../data/events'
-import axios from 'axios'
+import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button } from 'react-native';
+import { useTranslation } from 'react-i18next'
 import { Checkbox } from 'react-native-paper';
-import { colors } from '../../Components/colors';
-import { useTranslation } from 'react-i18next';
-function LoginScreen({ navigation }) {
+import { useEffect, useState } from 'react'
+function ConfigScreen({ navigation }) {
+
+
     const [portugueseCheck, setPortugueseCheck] = useState(false)
     const [spanishCheck, setSpanishCheck] = useState(false);
-    const {t, i18n}= useTranslation();
+    const [disablePortuguese, setDisablePortuguese] = useState(false)
+    const [disableSpanish, setDisableSpanish] = useState(false)
+    const { t, i18n } = useTranslation()
+    const [count, setCount] = useState(0)
 
     useEffect(() => {
         if (i18n.language === 'pt') {
@@ -16,22 +18,12 @@ function LoginScreen({ navigation }) {
         } else { setSpanishCheck(true) }
     })
 
-    useEffect(() => {
-
-        //ip casa 192.168.3.182
-        //ip uni 10.2.170.39
-        axios.get('http://192.168.3.182:3030/api/event').then(function (response) {
-            setEvents(response.data)
-            console.log(getEvents())
-        }).catch(function (error) {
-            console.log(error.message)
-        })
-    }, [])
 
     return (
         <View style={styles.container}>
+            <Text>{t("settings")}</Text>
 
-<View style={styles.viewHorizontal}>
+            <View style={styles.viewHorizontal}>
                 <Image
                     source={require('../../../assets/br.png')}
                     style={{
@@ -40,7 +32,7 @@ function LoginScreen({ navigation }) {
                     }}
                 />
                 <Checkbox
-                    disabled={false}
+                    disabled={disablePortuguese}
                     status={portugueseCheck ? 'checked' : 'unchecked'}
                     onPress={() => {
                         if (portugueseCheck) {
@@ -64,7 +56,7 @@ function LoginScreen({ navigation }) {
                     }}
                 />
                 <Checkbox
-                    disabled={false}
+                    disabled={disableSpanish}
                     status={spanishCheck ? 'checked' : 'unchecked'}
                     onPress={() => {
                         if (spanishCheck) { } else {
@@ -77,43 +69,16 @@ function LoginScreen({ navigation }) {
                 />
             </View>
 
-            <Text>{t("welcome")}</Text>
-            <Button title='Go to Maps' onPress={() => {
-                if (!portugueseCheck && !spanishCheck) {
-                    Alert.alert('None selected')
-                }
-                else {
-                    if (portugueseCheck) {
-                        console.log('PORTUGUES')
-                    }
-                    else {
-                        console.log('SPANISH')
-                    }
-                    navigation.replace('Home')
-                }
-            }
-
-
-
-            }></Button>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: Dimensions.get('window').height,
-        width: Dimensions.get('window').width,
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    viewHorizontal: {
-        height: Dimensions.get('screen').height * 0.1,
-        width: Dimensions.get('screen').width * 0.2,
-        flexDirection: 'row'
-    },
-    text: { color: `${colors.green}`, fontSize: 25 }
 });
-export { LoginScreen }
+export { ConfigScreen }
