@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "event" ALTER COLUMN "lat" DROP NOT NULL,
+ALTER COLUMN "long" DROP NOT NULL;
