@@ -1,8 +1,8 @@
 function HelloWorld() {
-    return(
+    return (
         <div className="Hello">
             <header className="Hello-Header">
-                <text>HelloWorld!</text>
+                <text>HelloWorld ;p</text>
             </header>
         </div>
     );

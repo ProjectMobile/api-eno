@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import '../css/Login.css';
+import { React, useState } from 'react';
+import './styles.css'
+// import { Input, Label, Button, FormGroup } from 'reactstrap';
 
-function Login() {
+function Form() {
+    
     const [visible, setVisible] = useState(false)
-
     function visibility() {
         setVisible(!visible)
     }
@@ -19,16 +20,18 @@ function Login() {
                     <label> FESTIVAL BINACIONAL </label>
                     <label> DE ENOGASTRONOMIA </label>
                 </div>
-                    <input type='text' name='e-Mail' placeholder='E-mail' className='input' />
-                    <input type={visible ? 'text' : 'password'} name='password' placeholder='Password' className='input' />
-                <div className='checkboxDiv'>
-                    <input type='checkbox' name='visibility' id='checkbox' onClick={() => visibility()} />
-                    <label className='checkbox'>show password</label>
+                <input type='text' name='e-Mail' placeholder='E-mail' className='input' />
+                <input type={visible ? 'text' : 'password'} name='password' placeholder='Password' className='input' />
+                <div >
+                    <input classname='checkbox' type='checkbox' name='visibility' id='checkbox' onClick={() => visibility()} />
+                    <label className='checklabel'>show password</label>
                 </div>
                 <input type='submit' value='Login' className='buttom' />
             </form>
+
         </div>
     );
+
 }
 
-export default Login;
+export default Form;

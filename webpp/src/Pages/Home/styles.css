@@ -1,8 +1,7 @@
 .event {
     min-height: 100vh;
-    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("../img/background.jpg");
-    background-size: 1490px;
     width: 100%;
+
 }
 
 header {
@@ -14,6 +13,7 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
+
 }
 
 .title {
