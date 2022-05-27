@@ -7,12 +7,9 @@ class CreateEventController {
         try {
             const { namePT, descriptionPT, addressPT, nameES, descriptionES, addressES, date, lat, long, eventCode, total_tickets, value, quantity } = req.body
             var dateValue = new Date();
+
             if (namePT === '' || nameES === '') {
                 throw new Error('You must provide a name')
-            }
-
-            if (descriptionPT === '' || descriptionES === '') {
-                throw new Error('You must provide a description')
             }
 
             if (addressPT === '' || addressES === '') {
