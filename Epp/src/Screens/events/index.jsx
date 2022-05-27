@@ -1,17 +1,35 @@
 import { useEffect, useState } from 'react';
-import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
+import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button, Alert, TouchableOpacity } from 'react-native';
 import { getEvents, setEvents } from '../../data/events'
 import { useTranslation } from 'react-i18next'
 import { axiosEvents } from '../../axios/'
 import NetInfo from "@react-native-community/netinfo";
 import axios from 'axios';
+
+// function ModalS(props, navigation) {
+//     return (
+//         <View style={{ width: '50%', height: '50%' }}>
+//             <Modal
+//                 transparent visible={props.visible}
+//             >
+//                 <Text>{props.name}</Text>
+//                 <Button
+//                     onPress={() => { navigation.navigate('Inicio', { screen: 'Home', params: props.item }) }}
+//                 />
+//             </Modal>
+//         </View>
+//     )
+// }
+
+
+
 function EventsScreen({ navigation }) {
     const { t, i18n } = useTranslation()
     const [eventos, setEventos] = useState([])
 
     useEffect(() => {
 
-        axios.get('http://192.168.1.142:3030/api/event').then(function (response) {
+        axios.get('http://192.168.3.182:3030/api/event').then(function (response) {
             setEvents(response.data)
         }).catch(function (error) {
             console.log(error.message)
@@ -39,17 +57,19 @@ function EventsScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
+
             <FlatList
                 data={eventos}
                 renderItem={({ item }) => {
                     const newDate = new Date(item.date)
-                    const formattedDate = `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`
+                    const formattedDate = `${newDate.getDate()}/0${newDate.getMonth()+1}/${newDate.getFullYear()}`
                     const formattedHour = `${newDate.getHours()}:${newDate.getMinutes()}`
                     return (<View style={styles.viewFromFlat}>
-                        <Text style={{ fontSize: 18, flexShrink: 1 }} onPress={() => {  }} > {item.name}</Text>
-                        <Text style={{ fontSize: 18, flexShrink: 1 }} onPress={() => { }} > {formattedDate}</Text>
-                        <Text style={{ fontSize: 18, flexShrink: 1 }} onPress={() => { navigation.navigate('Inicio') }} > {formattedHour}</Text>
-
+                        <TouchableOpacity onPress={() => { console.log(formattedDate,' ',newDate.toUTCString()),navigation.navigate('Inicio', { screen: 'Home', params: item }) }}>
+                            <Text style={{ fontSize: 18, flexShrink: 1 }} > {item.name}</Text>
+                            <Text style={{ fontSize: 18, flexShrink: 1 }} > {formattedDate}</Text>
+                            <Text style={{ fontSize: 18, flexShrink: 1 }} > {formattedHour}</Text>
+                        </TouchableOpacity>
                     </View>
                     )
 
@@ -69,6 +89,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        position: 'relative',
         width: '100%',
         height: '100%'
     }, listImcs: {
