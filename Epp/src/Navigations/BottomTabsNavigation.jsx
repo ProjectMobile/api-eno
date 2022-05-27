@@ -12,7 +12,9 @@ export function ShowBottomTabs() {
     return (
         <Tab.Navigator screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
             <Tab.Screen name="Inicio" component={HomeNavigation} options={{
-                tabBarIcon: ({ focused }) => (
+                unmountOnBlur: true,
+                
+                tabBarIcon: ({ focused }) => ( 
                     <>
                         <>
                             <Ionicons
@@ -22,7 +24,7 @@ export function ShowBottomTabs() {
                             />
                             <Text
                                 style={{
-                                    color: focused ? `${colors.red}` : `${colors.black}`, fontSize:10
+                                    color: focused ? `${colors.red}` : `${colors.black}`, fontSize: 10
                                 }}
                             >
                                 {t("map")}
@@ -42,7 +44,7 @@ export function ShowBottomTabs() {
                             />
                             <Text
                                 style={{
-                                    color: focused ? `${colors.red}` : `${colors.black}`, fontSize:10
+                                    color: focused ? `${colors.red}` : `${colors.black}`, fontSize: 10
                                 }}
                             >
                                 {t("partners")}
@@ -51,6 +53,26 @@ export function ShowBottomTabs() {
                     )
                 }} />
             <Tab.Screen name="Eventos" component={EventsNavigation}
+                options={{
+                    unmountOnBlur: true,
+                    tabBarIcon: ({ focused }) => (
+                        <>
+                            <Ionicons
+                                name="albums"
+                                size={24}
+                                color={focused ? `${colors.red}` : `${colors.black}`}
+                            />
+                            <Text
+                                style={{
+                                    color: focused ? `${colors.red}` : `${colors.black}`, fontSize: 10
+                                }}
+                            >
+                                {t("event")}
+                            </Text>
+                        </>
+                    )
+                }} />
+            <Tab.Screen name="Configuracao" component={ConfigurationNavigation}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <>
@@ -61,33 +83,14 @@ export function ShowBottomTabs() {
                             />
                             <Text
                                 style={{
-                                    color: focused ? `${colors.red}` : `${colors.black}`, fontSize:10
+                                    color: focused ? `${colors.red}` : `${colors.black}`, fontSize: 10
                                 }}
                             >
-                                {t("event")}
+                                {t("settings")}
                             </Text>
                         </>
                     )
                 }} />
-                <Tab.Screen name="Configuracao" component={ConfigurationNavigation}
-                    options={{
-                        tabBarIcon: ({ focused }) => (
-                            <>
-                                <Ionicons
-                                    name="albums"
-                                    size={24}
-                                    color={focused ? `${colors.red}` : `${colors.black}`}
-                                />
-                                <Text
-                                    style={{
-                                        color: focused ? `${colors.red}` : `${colors.black}`, fontSize:10
-                                    }}
-                                >
-                                    {t("settings")}
-                                </Text>
-                            </>
-                        )
-                    }} />
 
 
 
