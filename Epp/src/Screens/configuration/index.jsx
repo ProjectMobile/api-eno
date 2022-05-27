@@ -21,7 +21,7 @@ function ConfigScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text>{t("settings")}</Text>
+            <Text style={{ height: '80%', position: 'absolute' }}>{t("settings")}</Text>
 
             <View style={styles.viewHorizontal}>
                 <Image
@@ -79,6 +79,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-    },
+    }, viewHorizontal: {
+        height: Dimensions.get('screen').height * 0.1,
+        width: Dimensions.get('screen').width * 0.2,
+        flexDirection: 'row'
+    }
 });
 export { ConfigScreen }
