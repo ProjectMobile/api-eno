@@ -13,7 +13,7 @@ datasource db {
 model user {
   id            String          @id @default(uuid())
   name          String
-  email         String
+  email         String          @unique
   password      String
   roleId        Int
   role          role?           @relation(fields: [roleId], references: [id])
@@ -42,7 +42,7 @@ model event {
   id                String          @id @default(uuid())
   name              String
   date              DateTime
-  description       String?
+  description       String?        
   eventCode         Int
   address           String
   eventOf           String?
