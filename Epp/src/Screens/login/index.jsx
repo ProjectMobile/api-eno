@@ -20,9 +20,8 @@ function LoginScreen({ navigation }) {
 
         //ip casa 192.168.3.182
         //ip uni 10.2.170.39
-        axios.get('http://192.168.3.182:3030/api/event').then(function (response) {
+        axios.get('http://192.168.1.142:3030/api/event').then(function (response) {
             setEvents(response.data)
-            console.log(getEvents())
         }).catch(function (error) {
             console.log(error.message)
         })
@@ -78,7 +77,7 @@ function LoginScreen({ navigation }) {
             </View>
 
             <Text>{t("welcome")}</Text>
-            <Button title='Go to Maps' onPress={() => {
+            <Button title={`${t('button')}`} onPress={() => {
                 if (!portugueseCheck && !spanishCheck) {
                     Alert.alert('None selected')
                 }

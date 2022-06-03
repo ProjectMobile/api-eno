@@ -42,15 +42,19 @@ model event {
   id                String          @id @default(uuid())
   name              String
   date              DateTime
-  description       String
+  description       String?
+  eventCode         Int
   address           String
-  lat               Float
-  long              Float
+  eventOf           String?
+  lat               Float?
+  long              Float?
   total_tickets     Int?
   available_tickets Int?
-  price             Float?
   language          String
+  mainEvent         event?          @relation("Event-Event", fields: [eventOf], references: [id])
+  events            event[]         @relation("Event-Event")
   favoriteEvent     favoriteEvent[]
+  batch             batch[]
 }
 
 model partner {
@@ -58,4 +62,14 @@ model partner {
   name        String
   description String
   type        String
+}
+
+model batch {
+  id             String @id @default(uuid())
+  eventId        String
+  numBatch       Int
+  value          Float
+  quantity       Int
+  actualQuantity Int?
+  event          event  @relation(fields: [eventId], references: [id])
 }
