@@ -2,7 +2,10 @@ import { React, useState } from 'react';
 import './styles.css'
 import { useNavigate } from "react-router-dom";
 import logo from '../../Assets/Img/logo.png'
-import { Form } from 'react-bootstrap'
+import { 
+    Form,
+    Button
+} from 'react-bootstrap'
 
 function LoginForm() {
 
@@ -19,7 +22,7 @@ function LoginForm() {
 
     return (
         <div className='login'>
-            <form className='background'>
+            <form className='login-background'>
                 <img
                     alt='logo'
                     src={logo}
@@ -49,7 +52,7 @@ function LoginForm() {
                     <input classname='checkbox' type='checkbox' name='visibility' id='checkbox' onClick={() => visibility()} />
                     <label className='checklabel'>show password</label>
                 </div>
-                <input type='submit' value='Entrar' className='buttom' onClick={routeChange} />
+                <Button variant='outline-light' type='submit' className='buttom' onClick={routeChange}>Entrar</Button>
             </form>
 
         </div>

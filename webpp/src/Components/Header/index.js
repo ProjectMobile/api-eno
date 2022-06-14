@@ -1,27 +1,47 @@
 import React from 'react'
-import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap';
 import './styles.css';
 import logo from '../../Assets/Img/logo.png'
+import {
+    Navbar,
+    Button,
+    Container
+} from 'react-bootstrap'
 
 function Header() {
     return (
-        <div>
-            <Navbar
-                expand="xl"
-                full
-                dark
-                className='header'
-            >
-                <NavbarBrand href="/Home">
+        // <div>
+        //     <Navbar
+        //         expand="xl"
+        //         full
+        //         dark
+        //         className='header'
+        //     >
+        // //         <NavbarBrand href="/Home">
+
+        // //         </NavbarBrand>
+        // //         <NavbarToggler onClick={function noRefCheck() { }} />
+        // //     </Navbar>
+        // </div>
+
+        <Navbar
+            expand="xl"
+            full
+            dark
+            className='header'
+        >
+            <Container fluid>
+                <Navbar.Brand href="/Home">
                     <img
                         alt='logo'
                         width='150px'
                         src={logo}
                     />
-                </NavbarBrand>
-                <NavbarToggler onClick={function noRefCheck() { }} />
-            </Navbar>
-        </div>
+                </Navbar.Brand>
+
+                <Button variant="light" href='/NewEvent'>Novo Evento</Button>
+            </Container>
+        </Navbar>
+
     )
 }
 

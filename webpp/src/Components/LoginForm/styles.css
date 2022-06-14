@@ -6,7 +6,7 @@
 
 }
 
-.background {
+.login-background {
     background-color: #57061C;
     display: flex;
     padding: 50px;
@@ -38,12 +38,7 @@
 }
 
 .buttom {
-    background-color: rgba(255, 0, 0, 0);
     align-self: center;
-    width: 100px;
-    border-radius: 5px;
+    width: 150px;
     font-size: 17px;
-    border-color: white;
-    color: white;
-
 }
