@@ -1,12 +1,38 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-export async function setEvents(events) {
-    return AsyncStorage.setItem('@events', JSON.stringify(events)).then(json => console.log('success!'))
+export async function setEvents27(events) {
+    return AsyncStorage.setItem('@events27', JSON.stringify(events)).then(json => console.log('success!'))
         .catch(error => console.log('error!'));
 }
 
-export async function getEvents() {
-    const eventos = AsyncStorage.getItem('@events')
+export async function asyncClear() {
+    AsyncStorage.clear().then(() => {
+        console.log('cleaned')
+    })
+}
+
+export async function getEvents27() {
+    const eventos = AsyncStorage.getItem('@events27')
+    return eventos
+}
+
+export async function setEvents28(events) {
+    return AsyncStorage.setItem('@events28', JSON.stringify(events)).then(json => console.log('success!'))
+        .catch(error => console.log('error!'));
+}
+
+export async function getEvents28() {
+    const eventos = AsyncStorage.getItem('@events28')
+    return eventos
+}
+
+export async function setEvents29(events) {
+    return AsyncStorage.setItem('@events29', JSON.stringify(events)).then(json => console.log('success!'))
+        .catch(error => console.log('error!'));
+}
+
+export async function getEvents29() {
+    const eventos = AsyncStorage.getItem('@events29')
     return eventos
 }

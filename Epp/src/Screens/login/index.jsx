@@ -1,6 +1,6 @@
 import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
 import { useEffect, useState } from 'react';
-import { setEvents, getEvents } from '../../data/events'
+import { setEvents27, setEvents28, setEvents29, asyncClear } from '../../data/events'
 import axios from 'axios'
 import { Checkbox } from 'react-native-paper';
 import { colors } from '../../Components/colors';
@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 function LoginScreen({ navigation }) {
     const [portugueseCheck, setPortugueseCheck] = useState(false)
     const [spanishCheck, setSpanishCheck] = useState(false);
-    const {t, i18n}= useTranslation();
+    const { t, i18n } = useTranslation();
 
     useEffect(() => {
         if (i18n.language === 'pt') {
@@ -20,8 +20,31 @@ function LoginScreen({ navigation }) {
 
         //ip casa 192.168.3.182
         //ip uni 10.2.170.39
-        axios.get('http://192.168.1.142:3030/api/event').then(function (response) {
-            setEvents(response.data)
+        axios.get('http://10.2.170.39:3030/api/event').then(function (response) {
+            asyncClear();
+            const events = response.data;
+            var events27 = []
+            var events28 = []
+            var events29 = []
+            events.forEach(element => {
+                const data = new Date(element.date)
+                if (data.getDate() === 27) {
+                    events27.push(element)
+                }
+                else if (data.getDate() === 28) {
+                    events28.push(element)
+                }
+
+                else if (data.getDate() === 29) {
+                    events29.push(element)
+                }
+            }
+            );
+
+            setEvents27(events27)
+            setEvents28(events28)
+            setEvents29(events29)
+
         }).catch(function (error) {
             console.log(error.message)
         })
@@ -30,7 +53,7 @@ function LoginScreen({ navigation }) {
     return (
         <View style={styles.container}>
 
-<View style={styles.viewHorizontal}>
+            <View style={styles.viewHorizontal}>
                 <Image
                     source={require('../../../assets/br.png')}
                     style={{

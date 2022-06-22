@@ -12,7 +12,7 @@ class ListEventController {
             if (!events) {
                 return res.status(300).json('Não há eventos disponíveis')
             }
-
+            res.set('Access-Control-Allow-Origin', '*')
             return res.status(200).json(events)
 
         } catch (error) {
