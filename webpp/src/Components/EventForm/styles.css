@@ -5,10 +5,19 @@
 }
 
 .event-background {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+    color: white;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.600), rgba(0, 0, 0, 0.700));
     padding-left: 30px;
     padding-right: 30px;
+    padding-bottom: 30px;
     border-radius: 10px;
     margin-top: 10px;
     width: 90%;
+}
+
+.salvarOuCancelar{
+    text-align-last: right;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
 }

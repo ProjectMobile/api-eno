@@ -10,7 +10,7 @@ function Router() {
             <Routes>
                 <Route path="/" exact element={<Login />} />
                 <Route path="/Home" exact element={<Home />} />
-                <Route path='/NewEvent' exact element={<NewEvent />} />
+                <Route path="/NewEvent" exact element={<NewEvent />} />
             </Routes>
         </BrowserRouter>
     );
