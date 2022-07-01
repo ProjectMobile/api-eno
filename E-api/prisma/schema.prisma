@@ -42,7 +42,7 @@ model event {
   id                String          @id @default(uuid())
   name              String
   date              DateTime
-  description       String?        
+  description       String?
   eventCode         Int
   address           String
   eventOf           String?
@@ -50,6 +50,9 @@ model event {
   long              Float?
   total_tickets     Int?
   available_tickets Int?
+  type              String?
+  allDay            Boolean?
+  endDate           DateTime?
   language          String
   mainEvent         event?          @relation("Event-Event", fields: [eventOf], references: [id])
   events            event[]         @relation("Event-Event")

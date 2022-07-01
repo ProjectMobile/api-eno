@@ -13,6 +13,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 function EventsScreen({ navigation }) {
 
+
+
     const MyComponent = (props) => {
         const [expanded, setExpanded] = useState(() => {
             const today = new Date();
@@ -53,11 +55,13 @@ function EventsScreen({ navigation }) {
                                 left={props => {
                                     const today = new Date();
                                     const eventDate = new Date(event.date)
-                                    if (today.getMonth() + 1 >= eventDate.getMonth() + 1 && today.getDate() > eventDate.getDate() && today.getUTCHours() > eventDate.getUTCHours()) {
+                                    if (today.getMonth() + 1 > eventDate.getMonth() + 1) {
                                         return <List.Icon {...props} icon="close" color='red' />
-                                    } else {
-                                        return <List.Icon {...props} icon="circle" color='green' />
                                     }
+                                    else if (today.getMonth() + 1 >= eventDate.getMonth() + 1 && today.getUTCHours() > eventDate.getUTCHours()) {
+                                        return <List.Icon {...props} icon="close" color='red' />
+                                    }
+                                    else { return <List.Icon {...props} icon="circle" color='green' /> }
                                 }
                                 }
 
@@ -80,11 +84,13 @@ function EventsScreen({ navigation }) {
                                 left={props => {
                                     const today = new Date();
                                     const eventDate = new Date(event.date)
-                                    if (today.getMonth() + 1 >= eventDate.getMonth() + 1 && today.getDate() > eventDate.getDate() && today.getUTCHours() > eventDate.getUTCHours()) {
+                                    if (today.getMonth() + 1 > eventDate.getMonth() + 1) {
                                         return <List.Icon {...props} icon="close" color='red' />
-                                    } else {
-                                        return <List.Icon {...props} icon="circle" color='green' />
                                     }
+                                    else if (today.getMonth() + 1 >= eventDate.getMonth() + 1 && today.getUTCHours() > eventDate.getUTCHours()) {
+                                        return <List.Icon {...props} icon="close" color='red' />
+                                    }
+                                    else { return <List.Icon {...props} icon="circle" color='green' /> }
                                 }
                                 }
                                 onPress={() => {
@@ -105,11 +111,13 @@ function EventsScreen({ navigation }) {
                                 left={props => {
                                     const today = new Date();
                                     const eventDate = new Date(event.date)
-                                    if (today.getMonth() + 1 >= eventDate.getMonth() + 1 && today.getDate() > eventDate.getDate() && today.getUTCHours() > eventDate.getUTCHours()) {
+                                    if (today.getMonth() + 1 > eventDate.getMonth() + 1) {
                                         return <List.Icon {...props} icon="close" color='red' />
-                                    } else {
-                                        return <List.Icon {...props} icon="circle" color='green' />
                                     }
+                                    else if (today.getMonth() + 1 >= eventDate.getMonth() + 1 && today.getUTCHours() > eventDate.getUTCHours()) {
+                                        return <List.Icon {...props} icon="close" color='red' />
+                                    }
+                                    else { return <List.Icon {...props} icon="circle" color='green' /> }
                                 }
                                 }
                                 onPress={() => {
