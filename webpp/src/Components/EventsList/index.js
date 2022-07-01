@@ -34,6 +34,14 @@ function EventsList() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    function formattedDate(event) {
+        const data = new Date(event)
+        return String(data.getUTCDate()).padStart(2, '0') + '/' 
+        + String(data.getUTCMonth()).padStart(2,'0') + '/' + data.getUTCFullYear() 
+        + ' ' + String(data.getUTCHours()).padStart(2, '0') + ':' 
+        + String(data.getUTCMinutes()).padStart(2, '0');
+    }
+
     return (
         <div className='events-list'>
             <div className='event-background'>
@@ -47,7 +55,7 @@ function EventsList() {
 
                         </ListGroup.Item>
                         <ListGroup.Item className='event-item'>
-                            {breakpoint.date}
+                            {formattedDate(breakpoint.date)}
                             <div>
                                 <BiEditAlt size={25} className='edit-icon' />
                                 <BsTrash size={25} color='red' onClick={handleShow} />
