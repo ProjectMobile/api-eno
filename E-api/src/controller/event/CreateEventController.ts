@@ -5,7 +5,8 @@ class CreateEventController {
     async execute(req: Request, res: Response) {
 
         try {
-            const { namePT, descriptionPT, addressPT, nameES, descriptionES, addressES, date, lat, long, eventCode, total_tickets, value, quantity } = req.body
+            const { namePT, descriptionPT, addressPT, nameES, descriptionES, addressES, date, allDay, endDate, type, lat, long, eventCode, total_tickets, value, quantity } = req.body
+            var evento: any;
             var dateValue = new Date();
 
             if (namePT === '' || nameES === '') {
@@ -33,7 +34,7 @@ class CreateEventController {
                 throw new Error('You must provide a latitude and longitude')
             }
 
-            if (eventCode === '' || eventCode === null) {
+            if (eventCode === '' || eventCode === null || eventCode === undefined) {
                 throw new Error('You must provide an event code')
             } else {
                 const event = await prisma.event.findFirst({ where: { eventCode: eventCode } })
@@ -43,64 +44,104 @@ class CreateEventController {
                 }
             }
 
+            if (allDay === '' || allDay === null || allDay === undefined) {
+                throw new Error('All day not flaged!')
+            }
 
+            if (allDay) {
+                const ptEvent = await prisma.event.create({
+                    data: {
+                        name: namePT,
+                        description: descriptionPT,
+                        date: dateValue,
+                        address: addressPT,
+                        lat,
+                        long,
+                        type,
+                        allDay,
+                        eventCode,
+                        total_tickets,
+                        available_tickets: total_tickets,
+                        language: 'pt'
+                    }
+                })
 
+                const esEvent = await prisma.event.create({
+                    data: {
+                        name: nameES,
+                        description: descriptionES,
+                        date: dateValue,
+                        address: addressES,
+                        lat,
+                        long,
+                        eventCode,
+                        total_tickets,
+                        available_tickets: total_tickets,
+                        language: 'es'
+                    }
+                })
+                evento = ptEvent;
+            } else {
 
-            const ptEvent = await prisma.event.create({
-                data: {
-                    name: namePT,
-                    description: descriptionPT,
-                    date: dateValue,
-                    address: addressPT,
-                    lat,
-                    long,
-                    eventCode,
-                    total_tickets,
-                    available_tickets: total_tickets,
-                    language: 'pt'
+                if (endDate === '' || endDate === null || endDate === undefined) {
+                    throw new Error('endDate not informed!')
                 }
-            })
 
-            const esEvent = await prisma.event.create({
-                data: {
-                    name: nameES,
-                    description: descriptionES,
-                    date: dateValue,
-                    address: addressES,
-                    lat,
-                    long,
-                    eventCode,
-                    total_tickets,
-                    available_tickets: total_tickets,
-                    language: 'es'
-                }
-            })
+                const ptEvent = await prisma.event.create({
+                    data: {
+                        name: namePT,
+                        description: descriptionPT,
+                        date: dateValue,
+                        address: addressPT,
+                        lat,
+                        long,
+                        eventCode,
+                        total_tickets,
+                        available_tickets: total_tickets,
+                        language: 'pt'
+                    }
+                })
+
+
+                const esEvent = await prisma.event.create({
+                    data: {
+                        name: nameES,
+                        description: descriptionES,
+                        date: dateValue,
+                        address: addressES,
+                        lat,
+                        long,
+                        eventCode,
+                        total_tickets,
+                        available_tickets: total_tickets,
+                        language: 'es'
+                    }
+                })
+                evento = ptEvent;
+            }
 
             try {
 
-                const batch = await prisma.batch.create({
+                await prisma.batch.create({
                     data: {
                         numBatch: 1,
                         value,
                         quantity,
                         actualQuantity: quantity,
-                        eventId: ptEvent.id
+                        eventId: evento.id
                     }
                 })
-                return res.status(201).json({ ptEvent, esEvent, batch })
+                return res.status(201).json()
                 //HERE IS THE FINAL THING TO DO, IF IT WORKS, IT'S GONNA SEND THE INFOS TO DE DB AND CLOSE.
             } catch (error) {
                 await prisma.event.deleteMany({ where: { eventCode } })
             }
 
-            //IF IT GOES OUT, IT'S GONNA DELETE THE EVENT AND RETURN AN ERROR
             return res.status(400).json({ error: 'Something went wrong' })
 
         } catch (error) {
             return res.status(400).json({ error: error.message })
         }
-
-
 
     }
 
