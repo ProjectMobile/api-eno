@@ -6,8 +6,9 @@ function Event() {
 
     return (
         <>
-            <Header/>
-            <EventsList/>
+            <Header />
+            <EventsList />
+            <Header />
         </>
     );
 }
