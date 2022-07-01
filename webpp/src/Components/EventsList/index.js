@@ -12,17 +12,21 @@ function EventsList() {
 
     useEffect(() => {
         axios.get('http://localhost:3030/api/event').then(function (response) {
-            setAllEvents(response.data)
-            allEvents.forEach((event) => {
+            var eventsData = response.data
+            var ptEvents = [];
+            eventsData.forEach((event) => {
                 if (event.language === 'pt') {
-                    events.push(event);
+                    ptEvents.push(event);
                 }
             })
-            setEvents(events);
+            // setAllEvents(eventsData)
+            setEvents(ptEvents);
+
         })
     }, [])
 
-    const [allEvents, setAllEvents] = useState([]);
+
+    // const [allEvents, setAllEvents] = useState([]);
     const [events, setEvents] = useState([]);
 
     const [show, setShow] = useState(false);
