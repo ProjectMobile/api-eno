@@ -35,6 +35,16 @@ function EventsScreen({ navigation }) {
             } else { return true }
         });
 
+        function verifyDate(date) {
+            const today = new Date();
+            const eventDate = new Date(date);
+
+            if (eventDate > today) {
+                return true;
+            }
+
+        }
+
         const handlePress = () => setExpanded(!expanded);
         const handlePress2 = () => setExpanded2(!expanded2);
         const handlePress3 = () => setExpanded3(!expanded3);
@@ -53,18 +63,11 @@ function EventsScreen({ navigation }) {
                             return (< List.Item title={event.name} key={event.id}
 
                                 left={props => {
-                                    const today = new Date();
-                                    const eventDate = new Date(event.date)
-                                    if (today.getMonth() + 1 > eventDate.getMonth() + 1) {
-                                        return <List.Icon {...props} icon="close" color='red' />
-                                    }
-                                    else if (today.getMonth() + 1 >= eventDate.getMonth() + 1 && today.getUTCHours() > eventDate.getUTCHours()) {
-                                        return <List.Icon {...props} icon="close" color='red' />
-                                    }
-                                    else { return <List.Icon {...props} icon="circle" color='green' /> }
+                                    return (<Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
+                                        {formattedDate(event.date)}
+                                    </Text>)
                                 }
                                 }
-
                                 onPress={() => {
                                     setVisible(!visible)
                                     setEventoModal(event)
@@ -82,15 +85,9 @@ function EventsScreen({ navigation }) {
                         props.eventos28.map((event, index) => {
                             return (< List.Item title={event.name} key={event.id}
                                 left={props => {
-                                    const today = new Date();
-                                    const eventDate = new Date(event.date)
-                                    if (today.getMonth() + 1 > eventDate.getMonth() + 1) {
-                                        return <List.Icon {...props} icon="close" color='red' />
-                                    }
-                                    else if (today.getMonth() + 1 >= eventDate.getMonth() + 1 && today.getUTCHours() > eventDate.getUTCHours()) {
-                                        return <List.Icon {...props} icon="close" color='red' />
-                                    }
-                                    else { return <List.Icon {...props} icon="circle" color='green' /> }
+                                    return (<Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
+                                        {formattedDate(event.date)}
+                                    </Text>)
                                 }
                                 }
                                 onPress={() => {
@@ -109,15 +106,9 @@ function EventsScreen({ navigation }) {
                         props.eventos29.map((event, index) => {
                             return (< List.Item title={event.name} key={event.id}
                                 left={props => {
-                                    const today = new Date();
-                                    const eventDate = new Date(event.date)
-                                    if (today.getMonth() + 1 > eventDate.getMonth() + 1) {
-                                        return <List.Icon {...props} icon="close" color='red' />
-                                    }
-                                    else if (today.getMonth() + 1 >= eventDate.getMonth() + 1 && today.getUTCHours() > eventDate.getUTCHours()) {
-                                        return <List.Icon {...props} icon="close" color='red' />
-                                    }
-                                    else { return <List.Icon {...props} icon="circle" color='green' /> }
+                                    return (<Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
+                                        {formattedDate(event.date)}
+                                    </Text>)
                                 }
                                 }
                                 onPress={() => {
@@ -174,6 +165,7 @@ function EventsScreen({ navigation }) {
 
     function formattedDate(event) {
         const data = new Date(event)
+        // return String(data.getUTCDate()).padStart(2, '0') + '/' + String(data.getUTCMonth()).padStart(2,'0') + '/' + data.getUTCFullYear() 
         return String(data.getUTCHours()).padStart(2, '0') + ':' + String(data.getUTCMinutes()).padStart(2, '0')
     }
 
@@ -184,7 +176,7 @@ function EventsScreen({ navigation }) {
             <ModalPopUp visible={visible}>
                 <View style={{ height: '70%' }}>
                     <View style={{ marginBottom: '10%', flexDirection: 'row-reverse' }}>
-                        <Icon name='close' size={20} color='black' onPress={() => { setVisible(!visible) }} />
+                        <Icon name='close' size={32} color='black' onPress={() => { setVisible(!visible) }} />
                     </View>
 
                     <View style={{ alignItems: 'center' }}>
@@ -198,11 +190,6 @@ function EventsScreen({ navigation }) {
                             {eventoModal.url}
                         </Text>
                     </View>
-
-                    <Text style={{ flexShrink: 1, fontSize: 16 }}>
-                        {formattedDate(eventoModal.date)}
-                    </Text>
-
                     <View style={{ top: '70%' }}>
                         <Button icon="google-maps" mode="contained" color={colors.blue} onPress={() => {
                             navigation.navigate('Inicio', { screen: 'Home', params: eventoModal })
