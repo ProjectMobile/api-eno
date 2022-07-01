@@ -12,16 +12,35 @@ function EventsList() {
 
     useEffect(() => {
         axios.get('http://localhost:3030/api/event').then(function (response) {
-            setVariavel(response.data)
+            var eventsData = response.data
+            var ptEvents = [];
+            eventsData.forEach((event) => {
+                if (event.language === 'pt') {
+                    ptEvents.push(event);
+                }
+            })
+            // setAllEvents(eventsData)
+            setEvents(ptEvents);
+
         })
     }, [])
 
-    const [variavel, setVariavel] = useState([])
+
+    // const [allEvents, setAllEvents] = useState([]);
+    const [events, setEvents] = useState([]);
 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    function formattedDate(event) {
+        const data = new Date(event)
+        return String(data.getUTCDate()).padStart(2, '0') + '/' 
+        + String(data.getUTCMonth()).padStart(2,'0') + '/' + data.getUTCFullYear() 
+        + ' ' + String(data.getUTCHours()).padStart(2, '0') + ':' 
+        + String(data.getUTCMinutes()).padStart(2, '0');
+    }
 
     return (
         <div className='events-list'>
@@ -29,11 +48,15 @@ function EventsList() {
                 <div className='btn-div'>
                     <Button className='new-event-btn' variant="light" href='/NewEvent'>Novo Evento</Button>
                 </div>
-                {variavel.map((breakpoint) => (
+                {events.map((breakpoint) => (
                     <ListGroup key={breakpoint} horizontal={'sm'} className="my-3">
                         <ListGroup.Item className='event-item'>
                             {breakpoint.name}
-                            <div className='teste'>
+
+                        </ListGroup.Item>
+                        <ListGroup.Item className='event-item'>
+                            {formattedDate(breakpoint.date)}
+                            <div>
                                 <BiEditAlt size={25} className='edit-icon' />
                                 <BsTrash size={25} color='red' onClick={handleShow} />
                             </div>
