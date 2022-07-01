@@ -12,11 +12,18 @@ function EventsList() {
 
     useEffect(() => {
         axios.get('http://localhost:3030/api/event').then(function (response) {
-            setVariavel(response.data)
+            setAllEvents(response.data)
+            allEvents.forEach((event) => {
+                if (event.language === 'pt') {
+                    events.push(event);
+                }
+            })
+            setEvents(events);
         })
     }, [])
 
-    const [variavel, setVariavel] = useState([])
+    const [allEvents, setAllEvents] = useState([]);
+    const [events, setEvents] = useState([]);
 
     const [show, setShow] = useState(false);
 
@@ -29,11 +36,15 @@ function EventsList() {
                 <div className='btn-div'>
                     <Button className='new-event-btn' variant="light" href='/NewEvent'>Novo Evento</Button>
                 </div>
-                {variavel.map((breakpoint) => (
+                {events.map((breakpoint) => (
                     <ListGroup key={breakpoint} horizontal={'sm'} className="my-3">
                         <ListGroup.Item className='event-item'>
                             {breakpoint.name}
-                            <div className='teste'>
+
+                        </ListGroup.Item>
+                        <ListGroup.Item className='event-item'>
+                            {breakpoint.date}
+                            <div>
                                 <BiEditAlt size={25} className='edit-icon' />
                                 <BsTrash size={25} color='red' onClick={handleShow} />
                             </div>
