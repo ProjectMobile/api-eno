@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './styles.css'
 import ListGroup from 'react-bootstrap/ListGroup'
-import { Button } from 'react-bootstrap'
 import axios from 'axios'
+import { BiEditAlt } from 'react-icons/bi'
+import { BsTrash } from 'react-icons/bs'
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 function EventsList() {
 
@@ -15,6 +18,11 @@ function EventsList() {
 
     const [variavel, setVariavel] = useState([])
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
         <div className='events-list'>
             <div className='event-background'>
@@ -26,14 +34,35 @@ function EventsList() {
                         <ListGroup.Item className='event-item'>
                             {breakpoint.name}
                             <div className='teste'>
-                                <Button>editar</Button>
-                                <Button>remover</Button>
+                                <BiEditAlt size={25} className='edit-icon' />
+                                <BsTrash size={25} color='red' onClick={handleShow} />
                             </div>
                         </ListGroup.Item>
                     </ListGroup>
                 ))}
 
             </div>
+            <>
+                <Modal
+                    show={show}
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title>Deletar</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Deseja realmente remover este evento?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Fechar
+                        </Button>
+                        <Button variant="danger">Deletar</Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
         </div>
     )
 }

@@ -5,7 +5,7 @@
 }
 
 .event-background {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
     padding-left: 30px;
     padding-right: 30px;
     border-radius: 10px;
@@ -29,4 +29,8 @@
     border-color: black;
     align-self: flex-end;
     margin-top: 10px;
+}
+
+.edit-icon {
+    margin-right: 15px;
 }

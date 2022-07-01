@@ -8,7 +8,7 @@
 }
 
 body{
-    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("./Assets/Img/background.jpg");
+    background-color: white;
     background-size: 1500px;
     font-family: "Tahoma";
     -webkit-font-smoothing: antialiased;

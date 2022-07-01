@@ -1,12 +1,12 @@
 import React from 'react'
 import Header from '../../Components/Header'
-import NewEventForm from '../../Components/NewEventForm'
+import EventForm from '../../Components/EventForm'
 
 function NewEvent() {
   return (
     <>
       <Header />
-      <NewEventForm />
+      <EventForm/>
     </>
   )
 }
