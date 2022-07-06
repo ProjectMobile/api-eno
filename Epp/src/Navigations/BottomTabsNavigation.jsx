@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text } from 'react-native'
 import { colors } from '../Components/colors/'
 import { useTranslation } from 'react-i18next'
+import { loader } from "../data/events";
 const Tab = createBottomTabNavigator()
 export function ShowBottomTabs() {
     const { t, i18n } = useTranslation();
@@ -54,7 +55,7 @@ export function ShowBottomTabs() {
                 }} />
             <Tab.Screen name="Eventos" component={EventsNavigation}
                 options={{
-                    unmountOnBlur: true,
+                    unmountOnBlur: loader(),
                     tabBarIcon: ({ focused }) => (
                         <>
                             <Ionicons

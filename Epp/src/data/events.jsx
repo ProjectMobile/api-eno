@@ -36,3 +36,26 @@ export async function getEvents29() {
     const eventos = AsyncStorage.getItem('@events29')
     return eventos
 }
+export async function getEvents30() {
+    const eventos = AsyncStorage.getItem('@events30')
+    return eventos
+}
+export async function setEvents30(events) {
+    return AsyncStorage.setItem('@events30', JSON.stringify(events)).then(json => console.log('success!'))
+        .catch(error => console.log('error!'));
+}
+
+export var isLoaded = false;
+
+export function changeIsLoaded(){
+    isLoaded = true;
+}
+
+export function loader() {
+    if (isLoaded) {
+        isLoaded = false;
+        return true;
+    } else {
+        return false;
+    }
+}

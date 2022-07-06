@@ -3,7 +3,7 @@ import { Modal, StyleSheet, View } from "react-native"
 
 const ModalPopUp = ({ visible, children }) => {
     return (
-        <Modal transparent visible={visible}>
+        <Modal transparent visible={visible} animationType="slide"> 
             <View style={styles.modalBackGround}>
                 <View style={[styles.modalContainer]}>
                     {children}
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         width: '80%',
+        height: '60%',
         backgroundColor: 'white',
         paddingHorizontal: 20,
         paddingVertical: 15,

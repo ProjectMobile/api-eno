@@ -2,15 +2,13 @@ import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button } from 'rea
 import { useTranslation } from 'react-i18next'
 import { Checkbox } from 'react-native-paper';
 import { useEffect, useState } from 'react'
+import { changeIsLoaded, isLoaded } from '../../data/events';
 function ConfigScreen({ navigation }) {
 
 
     const [portugueseCheck, setPortugueseCheck] = useState(false)
     const [spanishCheck, setSpanishCheck] = useState(false);
-    const [disablePortuguese, setDisablePortuguese] = useState(false)
-    const [disableSpanish, setDisableSpanish] = useState(false)
     const { t, i18n } = useTranslation()
-    const [count, setCount] = useState(0)
 
     useEffect(() => {
         if (i18n.language === 'pt') {
@@ -32,7 +30,6 @@ function ConfigScreen({ navigation }) {
                     }}
                 />
                 <Checkbox
-                    disabled={disablePortuguese}
                     status={portugueseCheck ? 'checked' : 'unchecked'}
                     onPress={() => {
                         if (portugueseCheck) {
@@ -41,6 +38,7 @@ function ConfigScreen({ navigation }) {
                             setPortugueseCheck(!portugueseCheck);
                             setSpanishCheck(!spanishCheck);
                             i18n.changeLanguage('pt')
+                            changeIsLoaded()
                         }
 
 
@@ -56,13 +54,13 @@ function ConfigScreen({ navigation }) {
                     }}
                 />
                 <Checkbox
-                    disabled={disableSpanish}
                     status={spanishCheck ? 'checked' : 'unchecked'}
                     onPress={() => {
                         if (spanishCheck) { } else {
                             setSpanishCheck(!spanishCheck);
                             setPortugueseCheck(!portugueseCheck);
                             i18n.changeLanguage('es')
+                            changeIsLoaded()
                         }
 
                     }}
