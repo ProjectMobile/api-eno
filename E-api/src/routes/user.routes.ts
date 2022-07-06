@@ -1,6 +1,5 @@
 import { Router } from 'express'
-import { listuserController } from '../controller/'
-import { CreateUserController } from '../controller/user/CreateUserController'
+import { listuserController, CreateUserController } from '../controller/'
 
 const list = new listuserController()
 const create = new CreateUserController()

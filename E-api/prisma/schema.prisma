@@ -53,6 +53,7 @@ model event {
   type              String?
   allDay            Boolean?
   endDate           DateTime?
+  symplaURL         String?
   language          String
   mainEvent         event?          @relation("Event-Event", fields: [eventOf], references: [id])
   events            event[]         @relation("Event-Event")
