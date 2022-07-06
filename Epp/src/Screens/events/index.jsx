@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, View, Image, Alert, TouchableOpacity, ScrollView } from 'react-native';
-import { getEvents27, getEvents28, getEvents29, setEvents } from '../../data/events'
+import { getEvents27, getEvents28, getEvents29, getEvents30 } from '../../data/events'
 import { useTranslation } from 'react-i18next'
 import { List } from 'react-native-paper';
 import { ModalPopUp } from '../../Components/modal/index'
@@ -35,6 +35,13 @@ function EventsScreen({ navigation }) {
             } else { return true }
         });
 
+        const [expanded4, setExpanded4] = useState(() => {
+            const today = new Date();
+            if (today.getMonth() + 1 >= 7 && today.getDate() > 30) {
+                return false
+            } else { return true }
+        });
+
         function verifyDate(date) {
             const today = new Date();
             const eventDate = new Date(date);
@@ -48,8 +55,9 @@ function EventsScreen({ navigation }) {
         const handlePress = () => setExpanded(!expanded);
         const handlePress2 = () => setExpanded2(!expanded2);
         const handlePress3 = () => setExpanded3(!expanded3);
+        const handlePress4 = () => setExpanded4(!expanded4);
         return (
-            <List.Section title="Eventos">
+            <List.Section title="Eventos" titleStyle={{ alignSelf: 'center' }}>
 
 
                 <List.Accordion
@@ -118,7 +126,27 @@ function EventsScreen({ navigation }) {
                         })
                     }
                 </List.Accordion>
-
+                <List.Accordion
+                    title="Eventos do Dia 30"
+                    left={props => <List.Icon {...props} icon="folder" />}
+                    expanded={expanded4}
+                    onPress={handlePress4}>
+                    {
+                        props.eventos30.map((event, index) => {
+                            return (< List.Item title={event.name} key={event.id}
+                                left={props => {
+                                    return (<Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
+                                        {formattedDate(event.date)}
+                                    </Text>)
+                                }
+                                }
+                                onPress={() => {
+                                    setVisible(!visible)
+                                    setEventoModal(event)
+                                }} />)
+                        })
+                    }
+                </List.Accordion>
             </List.Section>
         );
     };
@@ -128,6 +156,7 @@ function EventsScreen({ navigation }) {
     const [eventos27, setEventos27] = useState([])
     const [eventos28, setEventos28] = useState([])
     const [eventos29, setEventos29] = useState([])
+    const [eventos30, setEventos30] = useState([])
 
     const [visible, setVisible] = useState(false)
     const [eventoModal, setEventoModal] = useState({})
@@ -138,7 +167,8 @@ function EventsScreen({ navigation }) {
             const eventosdia27 = await getEvents27();
             const eventosdia28 = await getEvents28();
             const eventosdia29 = await getEvents29();
-            const daysList = [JSON.parse(eventosdia27), JSON.parse(eventosdia28), JSON.parse(eventosdia29)]
+            const eventosdia30 = await getEvents30();
+            const daysList = [JSON.parse(eventosdia27), JSON.parse(eventosdia28), JSON.parse(eventosdia29), JSON.parse(eventosdia30)]
             const lang = i18n.language;
             daysList.forEach((element) => {
                 var eventLanguage = []
@@ -157,6 +187,8 @@ function EventsScreen({ navigation }) {
                 }
                 else if (date.getDate() === 29) {
                     setEventos29(eventLanguage.sort((a, b) => (a.date > b.date) ? 1 : -1))
+                } else if (date.getDate() === 30) {
+                    setEventos30(eventLanguage.sort((a, b) => (a.date > b.date) ? 1 : -1))
                 }
             })
         }
@@ -174,24 +206,26 @@ function EventsScreen({ navigation }) {
         <ScrollView >
 
             <ModalPopUp visible={visible}>
-                <View style={{ height: '70%' }}>
+                <View>
                     <View style={{ marginBottom: '10%', flexDirection: 'row-reverse' }}>
                         <Icon name='close' size={32} color='black' onPress={() => { setVisible(!visible) }} />
                     </View>
 
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={{ flexShrink: 1, fontSize: 16, color: 'red' }}>
+                        <Text style={{ flexShrink: 1, fontSize: 16, color: `${colors.red}` }}>
                             {eventoModal.name}
                         </Text>
+                        <ScrollView style={{marginTop: 10,height:'50%'}}>
                         <Text style={{ flexShrink: 1, fontSize: 16 }}>
                             {eventoModal.description}
                         </Text>
+                        </ScrollView>
                         <Text style={{ flexShrink: 1, fontSize: 16 }}>
                             {eventoModal.url}
                         </Text>
                     </View>
-                    <View style={{ top: '70%' }}>
-                        <Button icon="google-maps" mode="contained" color={colors.blue} onPress={() => {
+                    <View style={{ left: 0, right: 0, bottom: 0, position: 'absolute', alignItems:'center' }}>
+                        <Button icon="google-maps" mode="contained" color={colors.black} style={{width:'60%'}} onPress={() => {
                             navigation.navigate('Inicio', { screen: 'Home', params: eventoModal })
                         }} > Ver no Mapa </Button>
                     </View>
@@ -203,6 +237,7 @@ function EventsScreen({ navigation }) {
                 eventos27={eventos27}
                 eventos28={eventos28}
                 eventos29={eventos29}
+                eventos30={eventos30}
             ></MyComponent>
 
         </ScrollView>

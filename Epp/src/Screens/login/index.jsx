@@ -1,6 +1,6 @@
 import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
 import { useEffect, useState } from 'react';
-import { setEvents27, setEvents28, setEvents29, asyncClear } from '../../data/events'
+import { setEvents27, setEvents28, setEvents29, asyncClear, setEvents30 } from '../../data/events'
 import axios from 'axios'
 import { Checkbox } from 'react-native-paper';
 import { colors } from '../../Components/colors';
@@ -26,6 +26,7 @@ function LoginScreen({ navigation }) {
             var events27 = []
             var events28 = []
             var events29 = []
+            var events30 = []
             events.forEach(element => {
                 const data = new Date(element.date)
                 if (data.getDate() === 27) {
@@ -38,12 +39,16 @@ function LoginScreen({ navigation }) {
                 else if (data.getDate() === 29) {
                     events29.push(element)
                 }
+                else if (data.getDate() === 30) {
+                    events30.push(element)
+                }
             }
             );
 
             setEvents27(events27)
             setEvents28(events28)
             setEvents29(events29)
+            setEvents30(events30)
 
         }).catch(function (error) {
             console.log(error.message)
