@@ -1,2 +1,2 @@
 -- AlterTable
-ALTER TABLE "event" ADD COLUMN     "symplaURL" TEXT;
+ALTER TABLE "event" ADD COLUMN     "simplaURL" TEXT;

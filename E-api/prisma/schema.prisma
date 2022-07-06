@@ -53,7 +53,7 @@ model event {
   type              String?
   allDay            Boolean?
   endDate           DateTime?
-  symplaURL         String?
+  simplaURL         String?
   language          String
   mainEvent         event?          @relation("Event-Event", fields: [eventOf], references: [id])
   events            event[]         @relation("Event-Event")
@@ -62,9 +62,16 @@ model event {
 }
 
 model partner {
-  id          String @id @default(uuid())
+  id          Int     @id @default(autoincrement())
   name        String
   description String
+  address     String?
+  phoneNumber String?
+  email       String?
+  webSite     String?
+  lat         Float?
+  long        Float?
+  img         String?
   type        String
 }
 

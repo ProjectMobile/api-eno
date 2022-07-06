@@ -5,7 +5,7 @@ class CreateEventController {
     async execute(req: Request, res: Response) {
 
         try {
-            const { namePT, descriptionPT, addressPT, nameES, descriptionES, addressES, date, allDay, endDate, type, lat, long, eventCode, total_tickets, value, quantity } = req.body
+            const { namePT, descriptionPT, addressPT, nameES, descriptionES, addressES, date, allDay, endDate, type, lat, long, total_tickets, value, quantity } = req.body
             var evento: any;
             var dateValue = new Date();
 
@@ -34,15 +34,21 @@ class CreateEventController {
                 throw new Error('You must provide a latitude and longitude')
             }
 
-            if (eventCode === '' || eventCode === null || eventCode === undefined) {
-                throw new Error('You must provide an event code')
-            } else {
+            let verifier = true;
+
+            let eventCode = Math.floor(Math.random() * 100);
+
+            while (verifier) {
+
                 const event = await prisma.event.findFirst({ where: { eventCode: eventCode } })
 
                 if (event) {
-                    throw new Error('This event code already exists')
+                    eventCode = Math.floor(Math.random() * 100);
+                } else {
+                    verifier = false
                 }
             }
+
 
             if (allDay === '' || allDay === null || allDay === undefined) {
                 throw new Error('All day not flaged!')
