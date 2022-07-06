@@ -6,7 +6,8 @@ function NewEvent() {
   return (
     <>
       <Header />
-      <EventForm/>
+      <EventForm />
+      <Header />
     </>
   )
 }
