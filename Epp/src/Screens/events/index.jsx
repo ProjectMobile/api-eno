@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Dimensions, FlatList, StyleSheet, Text, View, Image, Alert, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Linking, Dimensions } from 'react-native';
 import { getEvents27, getEvents28, getEvents29, getEvents30 } from '../../data/events'
 import { useTranslation } from 'react-i18next'
 import { List } from 'react-native-paper';
@@ -7,13 +7,10 @@ import { ModalPopUp } from '../../Components/modal/index'
 import { colors } from '../../Components/colors/index'
 import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import NetInfo from "@react-native-community/netinfo";
 
 
 
 function EventsScreen({ navigation }) {
-
-
 
     const MyComponent = (props) => {
         const [expanded, setExpanded] = useState(() => {
@@ -61,7 +58,7 @@ function EventsScreen({ navigation }) {
 
 
                 <List.Accordion
-                    title="Eventos do Dia 27"
+                    title={t("events27")}
                     left={props => <List.Icon {...props} icon="folder" />}
                     expanded={expanded}
 
@@ -201,34 +198,56 @@ function EventsScreen({ navigation }) {
         return String(data.getUTCHours()).padStart(2, '0') + ':' + String(data.getUTCMinutes()).padStart(2, '0')
     }
 
+    function verifyButtonCondition(evento) {
+        if (String(evento).includes('sympla')) {
+            return t("buyTickets")
+        } else {
+            return t("subscribeEvent")
+        }
+    }
 
     return (
         <ScrollView >
 
             <ModalPopUp visible={visible}>
                 <View>
-                    <View style={{ marginBottom: '10%', flexDirection: 'row-reverse' }}>
+                    <View style={{ bottom: 5, flexDirection: 'row-reverse' }}>
                         <Icon name='close' size={32} color='black' onPress={() => { setVisible(!visible) }} />
                     </View>
+                    <Button icon="google-maps" mode="contained" color={colors.red} style={{ width: '60%', alignSelf: 'center' }} onPress={() => {
+                        navigation.navigate('Inicio', { screen: 'Home', params: eventoModal })
+                    }} > {t("seeOnMap")}</Button>
+                    {eventoModal.simplaURL && (<Button icon="google-maps" mode="contained" color={'darkgreen'} style={{ width: '100%', marginTop: 10 }} onPress={() => {
+                        Linking.openURL(eventoModal.simplaURL)
+                    }} > {
+                            verifyButtonCondition(eventoModal.simplaURL)
+                        } </Button>)}
+
+
+
+
 
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={{ flexShrink: 1, fontSize: 16, color: `${colors.red}` }}>
+                        <Text style={{ flexShrink: 1, fontSize: 20, color: `${colors.red}`, marginTop: 15, fontWeight: 'bold' }}>
                             {eventoModal.name}
                         </Text>
-                        <ScrollView style={{marginTop: 10,height:'50%'}}>
-                        <Text style={{ flexShrink: 1, fontSize: 16 }}>
-                            {eventoModal.description}
-                        </Text>
+                        <ScrollView style={{ marginTop: 10, height: Dimensions.get('window').height * 0.75 }}>
+                            <Text style={{ flexShrink: 1, fontSize: 16 }}>
+                                {eventoModal.description}
+                            </Text>
                         </ScrollView>
                         <Text style={{ flexShrink: 1, fontSize: 16 }}>
                             {eventoModal.url}
                         </Text>
                     </View>
-                    <View style={{ left: 0, right: 0, bottom: 0, position: 'absolute', alignItems:'center' }}>
-                        <Button icon="google-maps" mode="contained" color={colors.black} style={{width:'60%'}} onPress={() => {
+                    {/* <View style={{ left: 0, right: 0, bottom: -50, position: 'relative', alignItems: 'center' }}>
+                        <Button icon="google-maps" mode="contained" color={colors.black} style={{ width: '60%' }} onPress={() => {
                             navigation.navigate('Inicio', { screen: 'Home', params: eventoModal })
-                        }} > Ver no Mapa </Button>
-                    </View>
+                        }} > {t("seeOnMap")}</Button>
+                        {eventoModal.simplaURL && (<Button icon="google-maps" mode="contained" color={colors.black} style={{ width: '100%', marginTop: '' }} onPress={() => {
+                            Linking.openURL(eventoModal.simplaURL)
+                        }} > {t("buyTickets")} </Button>)}
+                    </View> */}
 
                 </View>
             </ModalPopUp >

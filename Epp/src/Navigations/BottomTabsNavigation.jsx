@@ -14,8 +14,8 @@ export function ShowBottomTabs() {
         <Tab.Navigator screenOptions={{ headerShown: false, tabBarShowLabel: false }}>
             <Tab.Screen name="Inicio" component={HomeNavigation} options={{
                 unmountOnBlur: true,
-                
-                tabBarIcon: ({ focused }) => ( 
+
+                tabBarIcon: ({ focused }) => (
                     <>
                         <>
                             <Ionicons
@@ -34,32 +34,14 @@ export function ShowBottomTabs() {
                     </>
                 )
             }} />
-            <Tab.Screen name="Parceiros" component={PartnersNavigation}
-                options={{
-                    tabBarIcon: ({ focused }) => (
-                        <>
-                            <Ionicons
-                                name="albums"
-                                size={24}
-                                color={focused ? `${colors.red}` : `${colors.black}`}
-                            />
-                            <Text
-                                style={{
-                                    color: focused ? `${colors.red}` : `${colors.black}`, fontSize: 10
-                                }}
-                            >
-                                {t("partners")}
-                            </Text>
-                        </>
-                    )
-                }} />
+
             <Tab.Screen name="Eventos" component={EventsNavigation}
                 options={{
                     unmountOnBlur: loader(),
                     tabBarIcon: ({ focused }) => (
                         <>
                             <Ionicons
-                                name="albums"
+                                name="wine-outline"
                                 size={24}
                                 color={focused ? `${colors.red}` : `${colors.black}`}
                             />
@@ -73,12 +55,33 @@ export function ShowBottomTabs() {
                         </>
                     )
                 }} />
+
+            <Tab.Screen name="Parceiros" component={PartnersNavigation}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <>
+                            <Ionicons
+                                name="ribbon-outline"
+                                size={24}
+                                color={focused ? `${colors.red}` : `${colors.black}`}
+                            />
+                            <Text
+                                style={{
+                                    color: focused ? `${colors.red}` : `${colors.black}`, fontSize: 10
+                                }}
+                            >
+                                {t("partners")}
+                            </Text>
+                        </>
+                    )
+                }} />
+
             <Tab.Screen name="Configuracao" component={ConfigurationNavigation}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <>
                             <Ionicons
-                                name="albums"
+                                name="settings-outline"
                                 size={24}
                                 color={focused ? `${colors.red}` : `${colors.black}`}
                             />

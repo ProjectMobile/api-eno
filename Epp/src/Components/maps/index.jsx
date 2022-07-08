@@ -1,48 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Dimensions, FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
-import { colors } from '../colors/'
-import axios from 'axios'
-import { events } from '../../data/events';
 import * as Location from "expo-location";
+import { mapStyle } from '../colors/'
 
-var mapStyle =
-  [
-    {
-      "featureType": "administrative",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "road",
-      "elementType": "labels.icon",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "transit",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    }
-  ]
 
 
 function Maps(props) {
@@ -58,6 +19,7 @@ function Maps(props) {
         longitude: props.latiD.long,
       })
     }
+
     //pede a localização do usuário.
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -105,6 +67,8 @@ function Maps(props) {
 
         </Marker>)}
 
+
+
         {props.latiD && (
           <Marker
 
@@ -115,8 +79,6 @@ function Maps(props) {
             pinColor={'red'}
             title={`${props.latiD.name}`}
             description={`${props.latiD.description}`}
-
-
 
           >
             {/* <Image

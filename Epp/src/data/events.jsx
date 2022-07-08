@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export async function setEvents27(events) {
-    return AsyncStorage.setItem('@events27', JSON.stringify(events)).then(json => console.log('success!'))
+    return AsyncStorage.setItem('@events27', JSON.stringify(events)).then(json => console.log(''))
         .catch(error => console.log('error!'));
 }
 
@@ -18,7 +18,7 @@ export async function getEvents27() {
 }
 
 export async function setEvents28(events) {
-    return AsyncStorage.setItem('@events28', JSON.stringify(events)).then(json => console.log('success!'))
+    return AsyncStorage.setItem('@events28', JSON.stringify(events)).then(json => console.log(''))
         .catch(error => console.log('error!'));
 }
 
@@ -28,7 +28,7 @@ export async function getEvents28() {
 }
 
 export async function setEvents29(events) {
-    return AsyncStorage.setItem('@events29', JSON.stringify(events)).then(json => console.log('success!'))
+    return AsyncStorage.setItem('@events29', JSON.stringify(events)).then(json => console.log(''))
         .catch(error => console.log('error!'));
 }
 
@@ -41,9 +41,11 @@ export async function getEvents30() {
     return eventos
 }
 export async function setEvents30(events) {
-    return AsyncStorage.setItem('@events30', JSON.stringify(events)).then(json => console.log('success!'))
+    return AsyncStorage.setItem('@events30', JSON.stringify(events)).then(json => console.log(''))
         .catch(error => console.log('error!'));
 }
+
+
 
 export var isLoaded = false;
 

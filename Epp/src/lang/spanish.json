@@ -1,9 +1,17 @@
 {
     "translation": {
         "event": "Evento",
-        "welcome":"Español",
-        "map": "Mapita",
-        "partners": "Parceros",
-        "settings": "Configuraciones"
+        "welcome": "Español",
+        "map": "Mapa",
+        "partners": "Socios",
+        "settings": "Configuraciones",
+        "button": "Seleccione el idioma",
+        "seeOnMap": "Ver en el mapa",
+        "buyTickets": "Comprar entradas",
+        "subscribeEvent": "Registrarse",
+        "events27": "Eventos del Día 27",
+        "events28": "Eventos del Día 28",
+        "events29": "Eventos del Día 29",
+        "events30": "Eventos del Día 30"
     }
 }
