@@ -1,7 +1,8 @@
 import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button, Alert } from 'react-native';
 import { useEffect, useState } from 'react';
 import { setEvents27, setEvents28, setEvents29, asyncClear, setEvents30 } from '../../data/events'
-import { setPartners } from '../../data/partners'
+// import { setPartners } from '../../data/partners'
+import {getPartners, setPartners} from '../partners/data/'
 import { api, eventsRoute, partnersRoute } from '../../api';
 import { Checkbox } from 'react-native-paper';
 import { colors } from '../../Components/colors';
@@ -51,7 +52,6 @@ function LoginScreen({ navigation }) {
             setEvents29(events29)
             setEvents30(events30)
 
-            console.log('feito!')
 
         }).catch(function (error) {
             console.log(error.message)

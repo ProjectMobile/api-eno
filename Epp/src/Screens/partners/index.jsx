@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button, TouchableOpacity } from 'react-native';
-import { getPartners } from '../../data/'
+import { Dimensions, FlatList, StyleSheet, Text, View, Image, Button, TouchableOpacity, Linking } from 'react-native';
+import { getPartners } from '../partners/data'
 import { List, Modal } from 'react-native-paper'
 import { ModalPopUp } from '../../Components/modal';
 import { Maps } from '../../Components/maps';
@@ -8,17 +8,56 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { colors } from '../../Components/colors';
 import { mapStyle } from '../../Components/colors/'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Ionicons } from '@expo/vector-icons';
 
 function PartnerScreen({ navigation }) {
+
+    function verifyPhone(phone) {
+        var phones = phone.split('/')
+        var functions = []
+        if (phones.length > 1) {
+            phones.map(phoneNumber => {
+                functions.push(
+                    <View style={{ flexDirection: 'row' }}>
+                        <Ionicons name="call-outline"
+                            size={20}
+                            style={{ marginRight: 10 }}
+                        />
+                        <Text
+                            style={{ color: colors.blue }}
+                            onPress={() => {
+                                Linking.openURL(`tel:${phoneNumber.replace('(whatsapp)', '')}`)
+                            }}>{phoneNumber}</Text>
+                    </View>
+                )
+            })
+        } else {
+            return (
+                <View style={{ flexDirection: 'row' }}>
+                    <Ionicons name="call-outline"
+                        size={20}
+                        style={{ marginRight: 10 }}
+                    />
+                    <Text
+                        style={{ color: colors.blue }}
+                        onPress={() => {
+                            Linking.openURL(`tel:${phone}`)
+                        }}>{phone}</Text>
+                </View>
+            )
+        }
+        return functions
+    }
 
 
     useEffect(() => {
         async function fetch() {
-            const partnersA = await getPartners();
-            var hotelParceiros = [JSON.parse(partnersA)]
+            const partnersA = getPartners();
+            var hotelParceiros = partnersA
+            console.log(hotelParceiros)
             var hotel = [];
 
-            hotelParceiros[0].forEach(element => {
+            hotelParceiros.forEach(element => {
                 if (element.type == "Hotel") {
                     hotel.push(element)
                 }
@@ -26,7 +65,6 @@ function PartnerScreen({ navigation }) {
 
             setHotelPartners(hotel)
 
-            setTimeout(()=>{console.log('done')},500)
         }
 
         fetch();
@@ -51,18 +89,40 @@ function PartnerScreen({ navigation }) {
     function ModalMap() {
         return (
             <ModalPopUp visible={modal}>
-                <View style={{flexDirection: 'row-reverse' }}>
-                        <Icon name='close' size={32} color='black' onPress={() => { setModal(!modal) }} />
-                    </View>
-
-                <View style={{}}>
-                    <Text>{partner.name}</Text>
-                    <Text>{partner.address}</Text>
-                    <Text>{partner.email}</Text>
-                    <Text>{partner.phoneNumber}</Text>
+                <View style={{ flexDirection: 'row-reverse' }}>
+                    <Icon name='close' size={32} color='black' onPress={() => { setModal(!modal) }} />
                 </View>
 
-                <View style={{ widht: Dimensions.get('screen').width * 1, height: Dimensions.get('screen').height * 0.46 }}>
+                <View style={{}}>
+                    <Text style={{ alignSelf: 'center', fontSize: 24, marginBottom: 10 }}>{partner.name}</Text>
+                    <Text>{partner.address}</Text>
+
+                    {
+                        partner.email && (
+                            <View style={{ flexDirection: 'row' }}>
+
+
+                                <Ionicons name="mail-unread-outline"
+                                    size={20}
+                                    style={{ marginRight: 10 }}
+                                />
+
+                                <Text
+                                    style={{ color: colors.blue }}
+                                    onPress={() => {
+                                        Linking.openURL(`mailto:${partner.email}`)
+                                    }}>{partner.email}</Text>
+                            </View>
+                        )
+                    }
+                    {
+                        partner.phoneNumber && (
+                            verifyPhone(partner.phoneNumber)
+                        )
+                    }
+                </View>
+
+                <View style={{ widht: Dimensions.get('screen').width * 1, height: Dimensions.get('screen').height * 0.86 }}>
                     <View style={{ justifyContent: 'center', alignItems: 'center', right: 0, left: 0, bottom: 0 }}>
                         <MapView
                             initialRegion={initialRegion}
