@@ -6,6 +6,5 @@ export function getPartners() {
 }
 
 export const setPartners = (partnerss) => {
-    console.log(partnerss)
     partners = partnerss;
 }

@@ -5,7 +5,6 @@ export async function getPartners() {
     return partners;
 }
 export async function setPartners(partners) {
-    // console.log(partners)
     return AsyncStorage.setItem('@partners', JSON.stringify(partners)).then(json => console.log('success!'))
         .catch(error => console.log('error!'));
 }

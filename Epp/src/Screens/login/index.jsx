@@ -125,12 +125,6 @@ function LoginScreen({ navigation }) {
                             Alert.alert('None selected')
                         }
                         else {
-                            if (portugueseCheck) {
-                                console.log('PORTUGUES')
-                            }
-                            else {
-                                console.log('SPANISH')
-                            }
                             navigation.replace('Home')
                         }
                     }

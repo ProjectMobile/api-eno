@@ -8,7 +8,6 @@ export async function setEvents27(events) {
 
 export async function asyncClear() {
     AsyncStorage.clear().then(() => {
-        console.log('cleaned')
     })
 }
 

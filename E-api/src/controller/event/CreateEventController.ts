@@ -5,9 +5,19 @@ class CreateEventController {
     async execute(req: Request, res: Response) {
 
         try {
-            const { namePT, descriptionPT, addressPT, nameES, descriptionES, addressES, date, allDay, endDate, type, lat, long, total_tickets, value, quantity } = req.body
+            const { namePT, descriptionPT, addressPT, nameES, descriptionES, addressES, date, allDay, endDate, type, lat, long, total_tickets, value, quantity, simpla } = req.body
             var evento: any;
             var dateValue = new Date();
+            var url = '';
+            if (simpla === undefined) {
+            } {
+                url = simpla
+            }
+
+            if (type === '' || type === null || type === undefined) {
+                throw new Error('You must provide a Event type')
+
+            }
 
             if (namePT === '' || nameES === '') {
                 throw new Error('You must provide a name')
@@ -55,6 +65,7 @@ class CreateEventController {
             }
 
             if (allDay) {
+
                 const ptEvent = await prisma.event.create({
                     data: {
                         name: namePT,
@@ -65,6 +76,7 @@ class CreateEventController {
                         long,
                         type,
                         allDay,
+                        simplaURL: url,
                         eventCode,
                         total_tickets,
                         available_tickets: total_tickets,
@@ -79,7 +91,9 @@ class CreateEventController {
                         date: dateValue,
                         address: addressES,
                         lat,
+                        type,
                         long,
+                        simplaURL: url,
                         eventCode,
                         total_tickets,
                         available_tickets: total_tickets,
@@ -92,6 +106,8 @@ class CreateEventController {
                 if (endDate === '' || endDate === null || endDate === undefined) {
                     throw new Error('endDate not informed!')
                 }
+
+
 
                 const ptEvent = await prisma.event.create({
                     data: {
@@ -125,6 +141,7 @@ class CreateEventController {
                 })
                 evento = ptEvent;
             }
+
 
             try {
 

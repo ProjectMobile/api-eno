@@ -6,8 +6,22 @@ import { BiEditAlt } from 'react-icons/bi'
 import { BsTrash } from 'react-icons/bs'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { api } from '../../Api'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 function EventsList() {
+    const navigate = useNavigate()
+
+    function eventDelete(id) {
+        api.post('event-delete', {
+            id
+        }).then(res => {
+            if (res.status === 200) {
+                alert('Deletado!')
+                window.location.reload()
+            }
+        })
+    }
 
 
     useEffect(() => {
@@ -28,7 +42,7 @@ function EventsList() {
 
     // const [allEvents, setAllEvents] = useState([]);
     const [events, setEvents] = useState([]);
-
+    const [deleteEvent, setDeleteEvent] = useState('')
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -36,10 +50,10 @@ function EventsList() {
 
     function formattedDate(event) {
         const data = new Date(event)
-        return String(data.getUTCDate()).padStart(2, '0') + '/' 
-        + String(data.getUTCMonth()).padStart(2,'0') + '/' + data.getUTCFullYear() 
-        + ' ' + String(data.getUTCHours()).padStart(2, '0') + ':' 
-        + String(data.getUTCMinutes()).padStart(2, '0');
+        return String(data.getUTCDate()).padStart(2, '0') + '/'
+            + String(data.getUTCMonth()).padStart(2, '0') + '/' + data.getUTCFullYear()
+            + ' ' + String(data.getUTCHours()).padStart(2, '0') + ':'
+            + String(data.getUTCMinutes()).padStart(2, '0');
     }
 
     return (
@@ -49,7 +63,7 @@ function EventsList() {
                     <Button className='new-event-btn' variant="light" href='/NewEvent'>Novo Evento</Button>
                 </div>
                 {events.map((breakpoint) => (
-                    <ListGroup key={breakpoint} horizontal={'sm'} className="my-3">
+                    <ListGroup key={breakpoint.id} horizontal={'sm'} className="my-3">
                         <ListGroup.Item className='event-item'>
                             {breakpoint.name}
 
@@ -58,7 +72,7 @@ function EventsList() {
                             {formattedDate(breakpoint.date)}
                             <div>
                                 <BiEditAlt size={25} className='edit-icon' />
-                                <BsTrash size={25} color='red' onClick={handleShow} />
+                                <BsTrash size={25} color='red' onClick={() => { handleShow(); setDeleteEvent(breakpoint.id) }} />
                             </div>
                         </ListGroup.Item>
                     </ListGroup>
@@ -82,7 +96,7 @@ function EventsList() {
                         <Button variant="secondary" onClick={handleClose}>
                             Fechar
                         </Button>
-                        <Button variant="danger">Deletar</Button>
+                        <Button variant="danger" onClick={() => { eventDelete(deleteEvent) }}>Deletar</Button>
                     </Modal.Footer>
                 </Modal>
             </>
