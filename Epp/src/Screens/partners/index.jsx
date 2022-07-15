@@ -8,17 +8,20 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
 import { colors } from '../../Components/colors';
 import { mapStyle } from '../../Components/colors/'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useTranslation } from 'react-i18next'
+
 import { Ionicons } from '@expo/vector-icons';
 
 function PartnerScreen({ navigation }) {
+    const { t, i18n } = useTranslation()
 
     function verifyPhone(phone) {
         var phones = phone.split('/')
         var functions = []
         if (phones.length > 1) {
-            phones.map(phoneNumber => {
+            phones.map((phoneNumber, index) => {
                 functions.push(
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row' }} key={index}>
                         <Ionicons name="call-outline"
                             size={20}
                             style={{ marginRight: 10 }}
@@ -54,7 +57,6 @@ function PartnerScreen({ navigation }) {
         async function fetch() {
             const partnersA = getPartners();
             var hotelParceiros = partnersA
-            console.log(hotelParceiros)
             var hotel = [];
 
             hotelParceiros.forEach(element => {
@@ -155,7 +157,7 @@ function PartnerScreen({ navigation }) {
 
             <List.Section title="Parceiros" titleStyle={{ alignSelf: 'center' }}>
                 <List.Accordion
-                    title="Hotéis Oficiais"
+                    title={t("officialHotels")}
                     expanded={expanded}
                     onPress={handlePress}
                 >
