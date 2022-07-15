@@ -82,7 +82,7 @@ function EventsScreen({ navigation }) {
                 </List.Accordion>
 
                 <List.Accordion
-                    title="Eventos do Dia 28"
+                    title={t("events28")}
                     left={props => <List.Icon {...props} icon="folder" />}
                     expanded={expanded2}
                     onPress={handlePress2}>
@@ -103,7 +103,7 @@ function EventsScreen({ navigation }) {
                     }
                 </List.Accordion>
                 <List.Accordion
-                    title="Eventos do Dia 29"
+                    title={t("events29")}
                     left={props => <List.Icon {...props} icon="folder" />}
                     expanded={expanded3}
                     onPress={handlePress3}>
@@ -124,7 +124,7 @@ function EventsScreen({ navigation }) {
                     }
                 </List.Accordion>
                 <List.Accordion
-                    title="Eventos do Dia 30"
+                    title={t("events30")}
                     left={props => <List.Icon {...props} icon="folder" />}
                     expanded={expanded4}
                     onPress={handlePress4}>
