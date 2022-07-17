@@ -1,38 +1,68 @@
 import React, { useState } from 'react'
-import './styles.css'
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
-import { eventType } from './data/'
+import { eventType } from '../EventForm/data'
 import { useNavigate } from 'react-router-dom'
-import { api, event } from '../../Api/'
+import { api, event } from '../../Api'
+import { getEventToBeEdited, getEventToBeEditedES } from './data'
 
-function EventForm() {
-    const [allDay, setAllDay] = useState(false)
+
+
+function EventUpdateForm() {
+
     const [controlled, setControlled] = useState(false)
     const [stillTickets, setStillTickets] = useState(false)
 
-    const [namePT, setNamePT] = useState('')
-    const [descriptionPT, setDescriptionPT] = useState('')
-    const [addressPT, setAddressPT] = useState('')
-    const [nameES, setNameES] = useState('')
-    const [addressES, setAddressES] = useState('')
-    const [descriptionES, setDescriptionES] = useState('')
-    const [eventTypeSelect, setEventTypeSelect] = useState('Outros')
-    const [lat, setLat] = useState(0)
-    const [long, setLong] = useState(0)
-    const [dateEvent, setDateEvent] = useState('')
-    const [hourEvent, setHourEvent] = useState('')
-    const [url, setUrl] = useState('')
+    const eventPT = getEventToBeEdited()
+    const eventES = getEventToBeEditedES()
+
+    var eventTYPE = eventType.find(element => { if (element.name === eventPT.type) { return element } });
+
+    const [allDay, setAllDay] = useState(eventPT.allDay)
+    const [namePT, setNamePT] = useState(eventPT.name)
+    const [descriptionPT, setDescriptionPT] = useState(eventPT.description)
+    const [addressPT, setAddressPT] = useState(eventPT.address)
+    const [nameES, setNameES] = useState(eventES.name)
+    const [addressES, setAddressES] = useState(eventES.address)
+    const [descriptionES, setDescriptionES] = useState(eventES.description)
+    const [eventTypeSelect, setEventTypeSelect] = useState(() => {
+        if (eventTYPE !== undefined) {
+            return eventTYPE.id
+        } else {
+            return 0;
+        }
+    })
+    const [lat, setLat] = useState(eventPT.lat)
+    const [long, setLong] = useState(eventPT.long)
+
+    const data = new Date(eventPT.date)
+
+
+    const [dateEvent, setDateEvent] = useState(data.getUTCFullYear() + '-' +
+        String(data.getUTCMonth()).padStart(2, '0') + '-' + String(data.getUTCDate()).padStart(2, '0'))
+
+    const [hourEvent, setHourEvent] = useState(String(data.getUTCHours()).padStart(2, '0') + ':'
+        + String(data.getUTCMinutes()).padStart(2, '0'))
+
+    const [url, setUrl] = useState(eventPT.url)
     const navigate = useNavigate()
 
-
-
     function eventFormSender() {
-        api.post('event', {
+
+        function veriFyType(){
+            eventType.find(element=>{
+                if(element.id === eventType){
+                    return element.name
+                }
+            })
+        }
+
+
+        api.post('event-update/' + eventPT.id, {
             namePT,
             descriptionPT,
             addressPT,
@@ -44,13 +74,10 @@ function EventForm() {
             date: formattedDate(),
             lat: Number(lat),
             long: Number(long),
-            total_tickets: 0,
-            value: 0,
-            quantity: 0,
-            type: eventTypeSelect
+            type: veriFyType()
         }).then((res) => {
-            if (res.status === 201) {
-                alert('Evento criado com sucesso!')
+            if (res.status === 200) {
+                alert('Evento Editado com sucesso!')
                 navigate('/home')
             }
         }).catch((err) => {
@@ -59,14 +86,9 @@ function EventForm() {
     }
 
 
-    
-
-
-
     function formattedDate() {
         return dateEvent + 'T' + hourEvent + ':00Z'
     }
-
 
     return (
         <div className='event-form'>
@@ -110,11 +132,11 @@ function EventForm() {
                             </div>
                         </Col>
                     </Row>
-                    <br/>
+                    <br />
                     <Form.Label>Dados Gerais:</Form.Label>
                     <Form.Group className="Event_Description" controlId="DescriptionOfEventES">
                         <Form.Label>Tipo do evento:</Form.Label>
-                        <Form.Select className="EventType" aria-label="Default select example" defaultValue={0}
+                        <Form.Select className="EventType" aria-label="Default select example" value={eventTypeSelect}
                             onChange={(e) => {
                                 setEventTypeSelect(e.target.value)
                             }}>
@@ -145,7 +167,7 @@ function EventForm() {
                             <Form.Label>Data de Inicio:</Form.Label>
                             <Row>
                                 <Col>
-                                    <Form.Control required type="Date" placeholder="dd/mm/aaaa" value={dateEvent} onChange={(e) => {
+                                    <Form.Control required type="Date" placeholder={dateEvent} value={dateEvent} onChange={(e) => {
                                         setDateEvent(e.target.value)
                                     }} />
                                 </Col>
@@ -172,7 +194,7 @@ function EventForm() {
                             <Form.Label>Data de Fim:</Form.Label>
                             <Row>
                                 <Col>
-                                    <Form.Control required type="Date" placeholder="dd/mm/aaaa"   />
+                                    <Form.Control required type="Date" placeholder="dd/mm/aaaa" />
                                 </Col>
                                 <Col>
                                     <Form.Control required={allDay} type="Time" placeholder="00:00" disabled={allDay} />
@@ -227,7 +249,7 @@ function EventForm() {
                     </div>
                 </Form>
                 <div className='salvarOuCancelar'>
-                    <Button variant="primary" onClick={()=>{
+                    <Button variant="primary" onClick={() => {
                         eventFormSender()
                     }}>Salvar</Button>{' '}
                     <Button variant="secondary" onClick={() => {
@@ -239,4 +261,4 @@ function EventForm() {
     )
 }
 
-export default EventForm
+export default EventUpdateForm

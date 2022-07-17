@@ -1,7 +1,7 @@
 import axios from 'axios'
 import getCookie from '../cookies/getCookies';
 
-export const baseURL = 'http://192.168.1.102:3030/api/';
+export const baseURL = 'http://localhost:3030/api/';
 export const event = 'event'
 export const partner = 'partners'
 

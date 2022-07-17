@@ -7,7 +7,8 @@ import { BsTrash } from 'react-icons/bs'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { api } from '../../Api'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { setEventToBeEdited, setEventToBeEditedES } from '../EventUpdateForm/data'
 
 function EventsList() {
     const navigate = useNavigate()
@@ -20,7 +21,7 @@ function EventsList() {
                 alert('Deletado!')
                 window.location.reload()
             }
-        }).catch(erro=>{
+        }).catch(erro => {
             console.log(erro)
         })
     }
@@ -44,11 +45,17 @@ function EventsList() {
 
     // const [allEvents, setAllEvents] = useState([]);
     const [events, setEvents] = useState([]);
-    const [deleteEvent, setDeleteEvent] = useState('')
-    const [show, setShow] = useState(false);
+    const [deleteEvent, setDeleteEvent] = useState('');
+    const [showDelete, setShowDelete] = useState(false);
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleCloseDelete = () => setShowDelete(false);
+    const handleShowDelete = () => setShowDelete(true);
+
+    const [showEvent, setShowEvent] = useState(false);
+    const handleCloseEvent = () => setShowEvent(false);
+    const handleShowEvent = () => setShowEvent(true);
+    const [viewEvent, setViewEvent] = useState('');
+
 
     function formattedDate(event) {
         const data = new Date(event)
@@ -62,29 +69,51 @@ function EventsList() {
         <div className='events-list'>
             <div className='event-background'>
                 <div className='btn-div'>
-                    <Button className='new-event-btn' variant="light" href='/NewEvent'>Novo Evento</Button>
+                    <Button className='new-event-btn' variant="light" href='/NewEvent' >Novo Evento</Button>
                 </div>
+
                 {events.map((breakpoint) => (
                     <ListGroup key={breakpoint.id} horizontal={'sm'} className="my-3">
-                        <ListGroup.Item className='event-item'>
+                        <ListGroup.Item className='event-item' onClick={() => {setViewEvent(breakpoint); handleShowEvent()}}>
                             {breakpoint.name}
-
                         </ListGroup.Item>
                         <ListGroup.Item className='event-item'>
                             {formattedDate(breakpoint.date)}
                             <div>
-                                <BiEditAlt size={25} className='edit-icon' />
-                                <BsTrash size={25} color='red' onClick={() => { handleShow(); setDeleteEvent(breakpoint.id) }} />
+                                <BiEditAlt size={25} className='edit-icon' onClick={() => {
+
+                                    setEventToBeEditedES(events.find(element => element.eventCode === breakpoint.eventCode))
+                                    setEventToBeEdited(breakpoint);
+
+                                    ; navigate('/UpdateEvent')
+                                }} />
+                                <BsTrash size={25} color='red' onClick={() => { handleShowDelete(); setDeleteEvent(breakpoint.id) }} />
                             </div>
                         </ListGroup.Item>
                     </ListGroup>
                 ))}
 
             </div>
+
+            <>
+                <Modal show={showEvent} onHide={handleCloseEvent}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{viewEvent.name}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{viewEvent.address}</Modal.Body>
+                    <Modal.Body>{viewEvent.description}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseEvent}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </>
+
             <>
                 <Modal
-                    show={show}
-                    onHide={handleClose}
+                    show={showDelete}
+                    onHide={handleCloseDelete}
                     backdrop="static"
                     keyboard={false}
                 >
@@ -95,7 +124,7 @@ function EventsList() {
                         Deseja realmente remover este evento?
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button variant="secondary" onClick={handleCloseDelete}>
                             Fechar
                         </Button>
                         <Button variant="danger" onClick={() => { eventDelete(deleteEvent) }}>Deletar</Button>
@@ -103,7 +132,7 @@ function EventsList() {
                 </Modal>
             </>
         </div>
-    )
+    );
 }
 
 export default EventsList
