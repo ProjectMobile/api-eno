@@ -40,6 +40,7 @@ function EventForm() {
             descriptionES,
             addressES,
             allDay,
+            simpla: url,
             date: formattedDate(),
             lat: Number(lat),
             long: Number(long),
@@ -170,7 +171,7 @@ function EventForm() {
                             <Form.Label>Data de Fim:</Form.Label>
                             <Row>
                                 <Col>
-                                    <Form.Control required type="Date" placeholder="dd/mm/aaaa" />
+                                    <Form.Control required type="Date" placeholder="dd/mm/aaaa"   />
                                 </Col>
                                 <Col>
                                     <Form.Control required={allDay} type="Time" placeholder="00:00" disabled={allDay} />

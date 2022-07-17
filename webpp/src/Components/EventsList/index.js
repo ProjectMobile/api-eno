@@ -20,6 +20,8 @@ function EventsList() {
                 alert('Deletado!')
                 window.location.reload()
             }
+        }).catch(erro=>{
+            console.log(erro)
         })
     }
 
