@@ -102,7 +102,8 @@ function EventUpdateForm() {
             date: formattedDate(dateEvent, hourEvent),
             lat: Number(lat),
             long: Number(long),
-            type: veriFyType().name
+            type: veriFyType().name,
+            endDate: formattedDate(endEventDate, endEventHour),
         }).then((res) => {
             if (res.status === 200) {
                 alert('Evento Editado com sucesso!')
@@ -115,7 +116,11 @@ function EventUpdateForm() {
 
 
     function formattedDate(dateEvent, hourEvent) {
-        return dateEvent + 'T' + hourEvent + ':00Z'
+        if(dateEvent !== undefined && hourEvent !== undefined){
+            return dateEvent + 'T' + hourEvent + ':00Z'
+        }else{
+            return undefined
+        }
     }
 
     return (

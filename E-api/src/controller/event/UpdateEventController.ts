@@ -115,6 +115,8 @@ class UpdateEventController {
                 })
             }else{
 
+                console.log(endDate)
+
                 try {
                     const newDate = new Date(endDate)
                     if (newDate.toString() !== 'Invalid Date') {
@@ -138,6 +140,7 @@ class UpdateEventController {
                                 long,
                                 type,
                                 allDay,
+                                endDate,
                                 simplaURL: url,
                                 language: 'pt'
                             }
@@ -154,6 +157,7 @@ class UpdateEventController {
                                 address: addressES,
                                 lat,
                                 allDay,
+                                endDate,
                                 type,
                                 long,
                                 simplaURL: url,
