@@ -48,18 +48,46 @@ function EventUpdateForm() {
     const [hourEvent, setHourEvent] = useState(String(data.getUTCHours()).padStart(2, '0') + ':'
         + String(data.getUTCMinutes()).padStart(2, '0'))
 
+    const finalData = new Date(eventPT.endDate)
+
+    const [endEventDate, setEndEventDate] = useState(finalData.getUTCFullYear() + '-' +
+        String(finalData.getUTCMonth()).padStart(2, '0') + '-' + String(finalData.getUTCDate()).padStart(2, '0'))
+
+    const [endEventHour, setEndEventHour] = useState(String(finalData.getUTCHours()).padStart(2, '0') + ':'
+        + String(finalData.getUTCMinutes()).padStart(2, '0'))
+
     const [url, setUrl] = useState(eventPT.url)
     const navigate = useNavigate()
 
-    function eventFormSender() {
-
-        function veriFyType(){
-            eventType.find(element=>{
-                if(element.id === eventType){
+    function veriFyType() {
+        return (
+            eventType.find(element => {
+                if (element.id === Number(eventTypeSelect)) {
                     return element.name
                 }
             })
-        }
+        )
+    }
+
+    function eventFormSender() {
+
+
+
+
+        console.log({
+            namePT,
+            descriptionPT,
+            addressPT,
+            nameES,
+            descriptionES,
+            addressES,
+            allDay,
+            simpla: url,
+            date: formattedDate(dateEvent, hourEvent),
+            lat: Number(lat),
+            long: Number(long),
+            type: veriFyType().name
+        })
 
 
         api.post('event-update/' + eventPT.id, {
@@ -71,10 +99,10 @@ function EventUpdateForm() {
             addressES,
             allDay,
             simpla: url,
-            date: formattedDate(),
+            date: formattedDate(dateEvent, hourEvent),
             lat: Number(lat),
             long: Number(long),
-            type: veriFyType()
+            type: veriFyType().name
         }).then((res) => {
             if (res.status === 200) {
                 alert('Evento Editado com sucesso!')
@@ -86,7 +114,7 @@ function EventUpdateForm() {
     }
 
 
-    function formattedDate() {
+    function formattedDate(dateEvent, hourEvent) {
         return dateEvent + 'T' + hourEvent + ':00Z'
     }
 
@@ -136,7 +164,7 @@ function EventUpdateForm() {
                     <Form.Label>Dados Gerais:</Form.Label>
                     <Form.Group className="Event_Description" controlId="DescriptionOfEventES">
                         <Form.Label>Tipo do evento:</Form.Label>
-                        <Form.Select className="EventType" aria-label="Default select example" value={eventTypeSelect}
+                        <Form.Select className="EventType" aria-label="Default select example" defaultValue={eventTypeSelect}
                             onChange={(e) => {
                                 setEventTypeSelect(e.target.value)
                             }}>
@@ -167,7 +195,7 @@ function EventUpdateForm() {
                             <Form.Label>Data de Inicio:</Form.Label>
                             <Row>
                                 <Col>
-                                    <Form.Control required type="Date" placeholder={dateEvent} value={dateEvent} onChange={(e) => {
+                                    <Form.Control required type="Date" value={dateEvent} onChange={(e) => {
                                         setDateEvent(e.target.value)
                                     }} />
                                 </Col>
@@ -194,10 +222,14 @@ function EventUpdateForm() {
                             <Form.Label>Data de Fim:</Form.Label>
                             <Row>
                                 <Col>
-                                    <Form.Control required type="Date" placeholder="dd/mm/aaaa" />
+                                    <Form.Control required type="Date" placeholder="dd/mm/aaaa" value={endEventDate} onChange={(element) => {
+                                        setEndEventDate(element.target.value)
+                                    }} />
                                 </Col>
                                 <Col>
-                                    <Form.Control required={allDay} type="Time" placeholder="00:00" disabled={allDay} />
+                                    <Form.Control required={allDay} type="Time" placeholder="00:00" disabled={allDay} value={endEventHour} onChange={(e) => {
+                                        setEndEventHour(e.target.value)
+                                    }} />
                                 </Col>
                             </Row>
                         </Form.Group>
