@@ -6,27 +6,53 @@ import { List } from 'react-native-paper';
 import { ModalPopUp } from '../../Components/modal/index'
 import { colors } from '../../Components/colors/index'
 import { Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+
+const returnIcon = (event) => {
+    if (String(event).includes('sympla')) {
+        return (
+            <Icon name='crown' size={16} style={styles.eventTypeIcon} />
+        )
+    } else if (String(event).includes('docs')) {
+        return (
+            <Icon name='ticket-confirmation' size={16} style={styles.eventTypeIcon} />
+        )
+    } else {
+        return (
+            <Icon name='ticket-outline' size={16} style={styles.eventTypeIcon} />
+
+        )
+    }
+}
+
+const buttonICON = (event) => {
+    if (String(event).includes('sympla')) {
+        return 'crown'
+    } else {
+        return 'ticket-confirmation'
+    }
+}
 
 
 function EventsScreen({ navigation }) {
 
+    const [subtitle, setSubtitle] = useState(true)
+
     const MyComponent = (props) => {
+        const today = new Date();
+
         const [expanded, setExpanded] = useState(() => {
-            const today = new Date();
             if (today.getMonth() + 1 >= 7 && today.getDate() > 27) {
                 return false
             } else { return true }
         });
         const [expanded2, setExpanded2] = useState(() => {
-            const today = new Date();
             if (today.getMonth() + 1 >= 7 && today.getDate() > 28) {
                 return false
             } else { return true }
         });
         const [expanded3, setExpanded3] = useState(() => {
-            const today = new Date();
             if (today.getMonth() + 1 >= 7 && today.getDate() > 29) {
                 return false
             } else { return true }
@@ -54,12 +80,13 @@ function EventsScreen({ navigation }) {
         const handlePress3 = () => setExpanded3(!expanded3);
         const handlePress4 = () => setExpanded4(!expanded4);
         return (
-            <List.Section title="Eventos" titleStyle={{ alignSelf: 'center' }}>
+
+            <List.Section title="" titleStyle={{ alignSelf: 'center' }}>
 
 
                 <List.Accordion
                     title={t("events27")}
-                    left={props => <List.Icon {...props} icon="folder" />}
+                    left={props => <List.Icon {...props} icon="calendar" />}
                     expanded={expanded}
 
                     onPress={handlePress}>
@@ -68,9 +95,18 @@ function EventsScreen({ navigation }) {
                             return (< List.Item title={event.name} key={event.id}
 
                                 left={props => {
-                                    return (<Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
-                                        {formattedDate(event.date)}
-                                    </Text>)
+                                    return (
+                                        <View style={{ flexDirection: 'row' }}>
+
+                                            <Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
+                                                {formattedDate(event.date)}
+                                            </Text>
+                                            {
+                                                returnIcon(event.simplaURL)
+                                            }
+
+                                        </View>
+                                    )
                                 }
                                 }
                                 onPress={() => {
@@ -83,37 +119,60 @@ function EventsScreen({ navigation }) {
 
                 <List.Accordion
                     title={t("events28")}
-                    left={props => <List.Icon {...props} icon="folder" />}
+                    left={props => <List.Icon {...props} icon="calendar" />}
                     expanded={expanded2}
                     onPress={handlePress2}>
                     {
                         props.eventos28.map((event, index) => {
                             return (< List.Item title={event.name} key={event.id}
-                                left={props => {
-                                    return (<Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
-                                        {formattedDate(event.date)}
-                                    </Text>)
-                                }
-                                }
+
                                 onPress={() => {
                                     setVisible(!visible)
                                     setEventoModal(event)
-                                }} />)
+                                }}
+
+                                left={props => {
+                                    return (
+                                        <View style={{ flexDirection: 'row' }}>
+
+                                            <Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
+                                                {formattedDate(event.date)}
+                                            </Text>
+                                            {
+                                                returnIcon(event.simplaURL)
+                                            }
+
+                                        </View>
+                                    )
+                                }
+                                }
+
+
+                            />)
                         })
                     }
                 </List.Accordion>
                 <List.Accordion
                     title={t("events29")}
-                    left={props => <List.Icon {...props} icon="folder" />}
+                    left={props => <List.Icon {...props} icon="calendar" />}
                     expanded={expanded3}
                     onPress={handlePress3}>
                     {
                         props.eventos29.map((event, index) => {
                             return (< List.Item title={event.name} key={event.id}
                                 left={props => {
-                                    return (<Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
-                                        {formattedDate(event.date)}
-                                    </Text>)
+                                    return (
+                                        <View style={{ flexDirection: 'row' }}>
+
+                                            <Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
+                                                {formattedDate(event.date)}
+                                            </Text>
+                                            {
+                                                returnIcon(event.simplaURL)
+                                            }
+
+                                        </View>
+                                    )
                                 }
                                 }
                                 onPress={() => {
@@ -125,16 +184,25 @@ function EventsScreen({ navigation }) {
                 </List.Accordion>
                 <List.Accordion
                     title={t("events30")}
-                    left={props => <List.Icon {...props} icon="folder" />}
+                    left={props => <List.Icon {...props} icon="calendar" />}
                     expanded={expanded4}
                     onPress={handlePress4}>
                     {
                         props.eventos30.map((event, index) => {
                             return (< List.Item title={event.name} key={event.id}
                                 left={props => {
-                                    return (<Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
-                                        {formattedDate(event.date)}
-                                    </Text>)
+                                    return (
+                                        <View style={{ flexDirection: 'row' }}>
+
+                                            <Text style={{ alignSelf: 'center', color: verifyDate(event.date) ? 'black' : 'red' }}>
+                                                {formattedDate(event.date)}
+                                            </Text>
+                                            {
+                                                returnIcon(event.simplaURL)
+                                            }
+
+                                        </View>
+                                    )
                                 }
                                 }
                                 onPress={() => {
@@ -144,7 +212,7 @@ function EventsScreen({ navigation }) {
                         })
                     }
                 </List.Accordion>
-            </List.Section>
+            </List.Section >
         );
     };
 
@@ -212,12 +280,12 @@ function EventsScreen({ navigation }) {
             <ModalPopUp visible={visible}>
                 <View>
                     <View style={{ bottom: 5, flexDirection: 'row-reverse' }}>
-                        <Icon name='close' size={32} color='black' onPress={() => { setVisible(!visible) }} />
+                        <Icon name='close' size={32} color='black' onPress={() => { setVisible(!visible) }} style={{}} />
                     </View>
-                    <Button icon="google-maps" mode="contained" color={colors.red} style={{ width: '60%', alignSelf: 'center' }} onPress={() => {
+                    <Button icon="google-maps" mode="contained" color={'white'} style={{ width: Dimensions.get('screen').width * 0.55, alignSelf: 'center', borderColor: 'red', borderWidth: 2, borderRadius: 20 }} onPress={() => {
                         navigation.navigate('Inicio', { screen: 'Home', params: eventoModal })
                     }} > {t("seeOnMap")}</Button>
-                    {eventoModal.simplaURL && (<Button icon="google-maps" mode="contained" color={'darkgreen'} style={{ width: '100%', marginTop: 10 }} onPress={() => {
+                    {eventoModal.simplaURL && (<Button icon={buttonICON(eventoModal.simplaURL)} mode="contained" color={'white'} style={{ width: Dimensions.get('screen').width * 0.55, marginTop: 10, alignSelf: 'center', borderColor: 'darkgreen', borderWidth: 2, borderRadius: 20 }} onPress={() => {
                         Linking.openURL(eventoModal.simplaURL)
                     }} > {
                             verifyButtonCondition(eventoModal.simplaURL)
@@ -228,11 +296,11 @@ function EventsScreen({ navigation }) {
 
 
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={{ flexShrink: 1, fontSize: 20, color: `${colors.red}`, marginTop: 15, fontWeight: 'bold' }}>
+                        <Text style={{ textAlign:'center', flexShrink: 1, fontSize: 20, color: `${colors.red}`, marginTop: 15, fontWeight: 'bold' }}>
                             {eventoModal.name}
                         </Text>
                         <ScrollView style={{ marginTop: 10, height: Dimensions.get('window').height * 0.75 }}>
-                            <Text style={{ flexShrink: 1, fontSize: 16 }}>
+                            <Text style={{ flexShrink: 1, fontSize: 16, textAlign:'justify' }}>
                                 {eventoModal.description}
                             </Text>
                         </ScrollView>
@@ -298,6 +366,13 @@ const styles = StyleSheet.create({
         borderRightWidth: 0,
         padding: 10
 
+    },
+    eventTypeIcon: {
+        marginLeft: 10,
+        alignSelf: 'center'
+    },
+    subtitleStyle: {
+        flexDirection: 'row', marginLeft: 10
     }
 });
 export { EventsScreen }
