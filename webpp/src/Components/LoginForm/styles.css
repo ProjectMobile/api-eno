@@ -1,5 +1,6 @@
 .login {
     background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("../../Assets/Img/background.jpg");
+    background-size: cover;
     display: flex;
     min-height: 100vh;
     justify-content: center;

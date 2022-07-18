@@ -97,7 +97,7 @@ function EventsList() {
 
             <>
                 <Modal show={showEvent} onHide={handleCloseEvent}>
-                    <Modal.Header closeButton>
+                    <Modal.Header >
                         <Modal.Title>{viewEvent.name}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{viewEvent.address}</Modal.Body>
