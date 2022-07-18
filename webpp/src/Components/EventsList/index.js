@@ -74,7 +74,7 @@ function EventsList() {
 
                 {events.map((breakpoint) => (
                     <ListGroup key={breakpoint.id} horizontal={'sm'} className="my-3">
-                        <ListGroup.Item className='event-item' onClick={() => {setViewEvent(breakpoint); handleShowEvent()}}>
+                        <ListGroup.Item className='event-item' onClick={() => { setViewEvent(breakpoint); handleShowEvent() }}>
                             {breakpoint.name}
                         </ListGroup.Item>
                         <ListGroup.Item className='event-item'>
@@ -98,10 +98,10 @@ function EventsList() {
             <>
                 <Modal show={showEvent} onHide={handleCloseEvent}>
                     <Modal.Header >
-                        <Modal.Title>{viewEvent.name}</Modal.Title>
+                        <Modal.Title> {viewEvent.name} </Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>{viewEvent.address}</Modal.Body>
-                    <Modal.Body>{viewEvent.description}</Modal.Body>
+                    <Modal.Body className='event-description'>{viewEvent.address}</Modal.Body>
+                    <Modal.Body className='event-description'>{viewEvent.description}</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseEvent}>
                             Close
