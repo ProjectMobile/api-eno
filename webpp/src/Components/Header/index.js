@@ -1,14 +1,10 @@
 import React from 'react'
 import './styles.css';
 import logo from '../../Assets/Img/logo.png'
-import {
-    Navbar,
-    Container
-} from 'react-bootstrap'
+import { Navbar, Container } from 'react-bootstrap'
 
 function Header() {
     return (
-
         <Navbar
             expand="xl"
             full
@@ -25,7 +21,6 @@ function Header() {
                 </Navbar.Brand>
             </Container>
         </Navbar>
-
     )
 }
 

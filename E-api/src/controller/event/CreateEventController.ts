@@ -65,7 +65,6 @@ class CreateEventController {
             }
 
             if (allDay) {
-
                 const ptEvent = await prisma.event.create({
                     data: {
                         name: namePT,
@@ -91,8 +90,9 @@ class CreateEventController {
                         date: dateValue,
                         address: addressES,
                         lat,
-                        type,
                         long,
+                        type,
+                        allDay,
                         simplaURL: url,
                         eventCode,
                         total_tickets,
@@ -117,6 +117,7 @@ class CreateEventController {
                         address: addressPT,
                         lat,
                         long,
+                        endDate,
                         eventCode,
                         total_tickets,
                         available_tickets: total_tickets,
@@ -133,6 +134,7 @@ class CreateEventController {
                         address: addressES,
                         lat,
                         long,
+                        endDate,
                         eventCode,
                         total_tickets,
                         available_tickets: total_tickets,

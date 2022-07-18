@@ -21,11 +21,8 @@ function EventsList() {
                 alert('Deletado!')
                 window.location.reload()
             }
-        }).catch(erro => {
-            console.log(erro)
-        })
+        }).catch(erro => { })
     }
-
 
     useEffect(() => {
         axios.get('http://localhost:3030/api/event').then(function (response) {
@@ -36,14 +33,11 @@ function EventsList() {
                     ptEvents.push(event);
                 }
             })
-            // setAllEvents(eventsData)
             setEvents(ptEvents);
 
         })
     }, [])
 
-
-    // const [allEvents, setAllEvents] = useState([]);
     const [events, setEvents] = useState([]);
     const [deleteEvent, setDeleteEvent] = useState('');
     const [showDelete, setShowDelete] = useState(false);

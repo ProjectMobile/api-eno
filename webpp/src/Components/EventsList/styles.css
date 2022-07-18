@@ -36,12 +36,6 @@
     margin-right: 15px;
 }
 
-.event-title {
-    align-self: center;
-    text-align: center;
-    justify-self: center;
-}
-
 .event-description {
     align-self: center;
     text-align: justify;

@@ -3,7 +3,6 @@ import Header from '../../Components/Header';
 import './styles.css';
 
 function Event() {
-
     return (
         <>
             <Header />
@@ -12,6 +11,5 @@ function Event() {
         </>
     );
 }
-
 
 export default Event;

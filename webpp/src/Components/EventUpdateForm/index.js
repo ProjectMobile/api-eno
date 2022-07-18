@@ -7,10 +7,8 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { eventType } from '../EventForm/data'
 import { useNavigate } from 'react-router-dom'
-import { api, event } from '../../Api'
+import { api } from '../../Api'
 import { getEventToBeEdited, getEventToBeEditedES } from './data'
-
-
 
 function EventUpdateForm() {
 
@@ -20,7 +18,7 @@ function EventUpdateForm() {
     const eventPT = getEventToBeEdited()
     const eventES = getEventToBeEditedES()
 
-    var eventTYPE = eventType.find(element => { if (element.name === eventPT.type) { return element } });
+    var eventTYPE = eventType.find(element => element.name === eventPT.type);
 
     const [allDay, setAllDay] = useState(eventPT.allDay)
     const [namePT, setNamePT] = useState(eventPT.name)
@@ -41,7 +39,6 @@ function EventUpdateForm() {
 
     const data = new Date(eventPT.date)
 
-
     const [dateEvent, setDateEvent] = useState(data.getUTCFullYear() + '-' +
         String(data.getUTCMonth()).padStart(2, '0') + '-' + String(data.getUTCDate()).padStart(2, '0'))
 
@@ -61,34 +58,11 @@ function EventUpdateForm() {
 
     function veriFyType() {
         return (
-            eventType.find(element => {
-                if (element.id === Number(eventTypeSelect)) {
-                    return element.name
-                }
-            })
+            eventType.find(element => element.id === Number(eventTypeSelect))
         )
     }
 
     function eventFormSender() {
-
-
-
-
-        console.log({
-            namePT,
-            descriptionPT,
-            addressPT,
-            nameES,
-            descriptionES,
-            addressES,
-            allDay,
-            simpla: url,
-            date: formattedDate(dateEvent, hourEvent),
-            lat: Number(lat),
-            long: Number(long),
-            type: veriFyType().name
-        })
-
 
         api.post('event-update/' + eventPT.id, {
             namePT,
@@ -114,11 +88,10 @@ function EventUpdateForm() {
         })
     }
 
-
     function formattedDate(dateEvent, hourEvent) {
-        if(dateEvent !== undefined && hourEvent !== undefined){
+        if (dateEvent !== undefined && hourEvent !== undefined) {
             return dateEvent + 'T' + hourEvent + ':00Z'
-        }else{
+        } else {
             return undefined
         }
     }

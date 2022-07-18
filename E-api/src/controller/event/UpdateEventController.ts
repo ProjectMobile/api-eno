@@ -70,9 +70,6 @@ class UpdateEventController {
             }
 
             if(allDay){
-
-                
-
                 eventsToBeEdited.forEach(async (event) => {
                     if (event.language == 'pt') {
                         await prisma.event.update({
@@ -87,7 +84,6 @@ class UpdateEventController {
                                 long,
                                 type,
                                 allDay,
-                                endDate,
                                 simplaURL: url,
                                 language: 'pt'
                             }
@@ -103,10 +99,9 @@ class UpdateEventController {
                                 date: dateValue,
                                 address: addressES,
                                 lat,
-                                allDay,
-                                type,
-                                endDate,
                                 long,
+                                type,
+                                allDay,
                                 simplaURL: url,
                                 language: 'es'
                             }
@@ -114,8 +109,6 @@ class UpdateEventController {
                     }
                 })
             }else{
-
-                console.log(endDate)
 
                 try {
                     const newDate = new Date(endDate)
@@ -139,7 +132,6 @@ class UpdateEventController {
                                 lat,
                                 long,
                                 type,
-                                allDay,
                                 endDate,
                                 simplaURL: url,
                                 language: 'pt'
@@ -156,7 +148,6 @@ class UpdateEventController {
                                 date: dateValue,
                                 address: addressES,
                                 lat,
-                                allDay,
                                 endDate,
                                 type,
                                 long,

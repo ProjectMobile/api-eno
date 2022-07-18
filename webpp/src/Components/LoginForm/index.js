@@ -1,12 +1,9 @@
 import { React, useState } from 'react';
 import './styles.css'
 import { useNavigate } from "react-router-dom";
-import SetCookie, { setRefresh, setToken } from './../../cookies/setCookies'
+import { setRefresh, setToken } from './../../cookies/setCookies'
 import logo from '../../Assets/Img/logo.png'
-import {
-    Form,
-    Button
-} from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { api } from '../../Api/'
 
 function LoginForm() {
@@ -24,9 +21,7 @@ function LoginForm() {
         }).catch((error) => {
             alert('Senha ou Usuário Incorretos!')
         })
-
     }
-
 
     const navigate = useNavigate();
 
@@ -36,8 +31,6 @@ function LoginForm() {
     function visibility() {
         setVisible(!visible)
     }
-
-
 
     return (
         <div className='login'>
@@ -81,7 +74,6 @@ function LoginForm() {
                 </div>
                 <Button variant='outline-light' className='buttom' onClick={() => { tryLog() }}>Entrar</Button>
             </form>
-
         </div>
     );
 
