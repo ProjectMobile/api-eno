@@ -25,15 +25,15 @@ class UpdateEventController {
             })
 
             const { namePT, descriptionPT, addressPT, nameES, descriptionES, addressES, date, allDay, endDate, type, lat, long, simpla } = req.body
-            var evento: any;
             var dateValue = new Date();
+            var endDateValue = new Date();
             var url = '';
             if (simpla === undefined) {
             } {
                 url = simpla
             }
 
-            if (type === '' || type === null || type === undefined) {
+            if (type === '' || type === null || type === undefined || typeof type != 'string') {
                 throw new Error('You must provide a Event type')
 
             }
@@ -59,9 +59,9 @@ class UpdateEventController {
                 throw new Error('You must provide a valid date')
             }
 
-            
 
-            if (lat === '' || long === '') {
+
+            if (lat === '' || long === '' || typeof lat !== 'number' || typeof long !== 'number') {
                 throw new Error('You must provide a latitude and longitude')
             }
 
@@ -69,7 +69,7 @@ class UpdateEventController {
                 throw new Error('All day not flaged!')
             }
 
-            if(allDay){
+            if (allDay) {
                 eventsToBeEdited.forEach(async (event) => {
                     if (event.language == 'pt') {
                         await prisma.event.update({
@@ -80,6 +80,7 @@ class UpdateEventController {
                                 description: descriptionPT,
                                 date: dateValue,
                                 address: addressPT,
+                                endDate: null,
                                 lat,
                                 long,
                                 type,
@@ -100,6 +101,7 @@ class UpdateEventController {
                                 address: addressES,
                                 lat,
                                 long,
+                                endDate: null,
                                 type,
                                 allDay,
                                 simplaURL: url,
@@ -108,15 +110,20 @@ class UpdateEventController {
                         })
                     }
                 })
-            }else{
+            } else {
+
+
+                if (endDate === '' || endDate === null || endDate === undefined) {
+                    throw new Error('endDate not informed!')
+                }
 
                 try {
                     const newDate = new Date(endDate)
                     if (newDate.toString() !== 'Invalid Date') {
-                        dateValue = newDate;
+                        endDateValue = newDate;
                     }
                 } catch (error) {
-                    throw new Error('You must provide a valid endDate')
+                    throw new Error('You must provide a valid date')
                 }
 
                 eventsToBeEdited.forEach(async (event) => {
@@ -132,7 +139,7 @@ class UpdateEventController {
                                 lat,
                                 long,
                                 type,
-                                endDate,
+                                endDate: endDateValue,
                                 simplaURL: url,
                                 language: 'pt'
                             }
@@ -148,7 +155,7 @@ class UpdateEventController {
                                 date: dateValue,
                                 address: addressES,
                                 lat,
-                                endDate,
+                                endDate: endDateValue,
                                 type,
                                 long,
                                 simplaURL: url,

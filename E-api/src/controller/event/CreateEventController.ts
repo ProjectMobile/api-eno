@@ -8,6 +8,7 @@ class CreateEventController {
             const { namePT, descriptionPT, addressPT, nameES, descriptionES, addressES, date, allDay, endDate, type, lat, long, total_tickets, value, quantity, simpla } = req.body
             var evento: any;
             var dateValue = new Date();
+            var endDateValue = new Date();
             var url = '';
             if (simpla === undefined) {
             } {
@@ -107,6 +108,15 @@ class CreateEventController {
                     throw new Error('endDate not informed!')
                 }
 
+                try {
+                    const newDate = new Date(endDate)
+                    if (newDate.toString() !== 'Invalid Date') {
+                        endDateValue = newDate;
+                    }
+                } catch (error) {
+                    throw new Error('You must provide a valid date')
+                }
+
 
 
                 const ptEvent = await prisma.event.create({
@@ -117,7 +127,7 @@ class CreateEventController {
                         address: addressPT,
                         lat,
                         long,
-                        endDate,
+                        endDate: endDateValue,
                         eventCode,
                         total_tickets,
                         available_tickets: total_tickets,
@@ -134,7 +144,7 @@ class CreateEventController {
                         address: addressES,
                         lat,
                         long,
-                        endDate,
+                        endDate: endDateValue,
                         eventCode,
                         total_tickets,
                         available_tickets: total_tickets,
