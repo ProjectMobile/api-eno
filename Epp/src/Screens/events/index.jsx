@@ -296,11 +296,11 @@ function EventsScreen({ navigation }) {
 
 
                     <View style={{ alignItems: 'center' }}>
-                        <Text style={{ textAlign:'center', flexShrink: 1, fontSize: 20, color: `${colors.red}`, marginTop: 15, fontWeight: 'bold' }}>
+                        <Text style={{ textAlign: 'center', flexShrink: 1, fontSize: 20, color: `${colors.red}`, marginTop: 15, fontWeight: 'bold' }}>
                             {eventoModal.name}
                         </Text>
                         <ScrollView style={{ marginTop: 10, height: Dimensions.get('window').height * 0.75 }}>
-                            <Text style={{ flexShrink: 1, fontSize: 16, textAlign:'justify' }}>
+                            <Text style={{ flexShrink: 1, fontSize: 16, textAlign: 'justify' }}>
                                 {eventoModal.description}
                             </Text>
                         </ScrollView>
@@ -326,6 +326,26 @@ function EventsScreen({ navigation }) {
                 eventos29={eventos29}
                 eventos30={eventos30}
             ></MyComponent>
+
+            <View>
+
+                <View style={{ flexDirection: 'row' }}>
+                    <Icon name='crown' size={16} style={styles.eventTypeIcon} />
+                    <Text> Evento Pago </Text>
+                </View>
+
+                <View style={{ flexDirection: 'row' }}>
+                    <Icon name='ticket-confirmation-outline' size={16} style={styles.eventTypeIcon} />
+                    <Text> Evento que requer inscrição </Text>
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <Icon name='ticket-outline' size={16} style={styles.eventTypeIcon} />
+                    <Text> Evento gratuito </Text>
+                </View>
+
+
+
+            </View>
 
         </ScrollView>
     );
