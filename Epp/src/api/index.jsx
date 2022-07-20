@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const route = 'http://192.168.1.102:3030/api/'
+export const route = 'http://10.2.170.35:3030/api/'
 export const eventsRoute = 'event'
 export const partnersRoute = 'partners'
 

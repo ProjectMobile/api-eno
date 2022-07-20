@@ -8,7 +8,7 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { eventType } from './data/'
 import { useNavigate } from 'react-router-dom'
-import { api, event } from '../../Api/'
+import { api } from '../../Api/'
 
 function EventForm() {
     const [allDay, setAllDay] = useState(false)
@@ -58,15 +58,9 @@ function EventForm() {
         })
     }
 
-
-    
-
-
-
     function formattedDate() {
         return dateEvent + 'T' + hourEvent + ':00Z'
     }
-
 
     return (
         <div className='event-form'>
@@ -110,7 +104,7 @@ function EventForm() {
                             </div>
                         </Col>
                     </Row>
-                    <br/>
+                    <br />
                     <Form.Label>Dados Gerais:</Form.Label>
                     <Form.Group className="Event_Description" controlId="DescriptionOfEventES">
                         <Form.Label>Tipo do evento:</Form.Label>
@@ -172,7 +166,7 @@ function EventForm() {
                             <Form.Label>Data de Fim:</Form.Label>
                             <Row>
                                 <Col>
-                                    <Form.Control required type="Date" placeholder="dd/mm/aaaa"   />
+                                    <Form.Control required type="Date" placeholder="dd/mm/aaaa" />
                                 </Col>
                                 <Col>
                                     <Form.Control required={allDay} type="Time" placeholder="00:00" disabled={allDay} />
@@ -227,7 +221,7 @@ function EventForm() {
                     </div>
                 </Form>
                 <div className='salvarOuCancelar'>
-                    <Button variant="primary" onClick={()=>{
+                    <Button variant="primary" onClick={() => {
                         eventFormSender()
                     }}>Salvar</Button>{' '}
                     <Button variant="secondary" onClick={() => {

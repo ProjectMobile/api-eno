@@ -4,10 +4,9 @@
     outline: 0;
     box-sizing: border-box;
     font-family: "Tahoma";
-
 }
 
-body{
+body {
     background-color: white;
     background-size: 1500px;
     font-family: "Tahoma";
@@ -18,29 +17,31 @@ button {
     font-family: "Tahoma";
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
 }
 
-a{ 
+a {
     text-decoration: none;
 }
 
 
 /*Definição de títulos/ subtitulos/ corpos de texto */
-h1{
+h1 {
     color: #1b1b1b;
     font-size: 40px;
 }
 
-h2{ color: #1b1b1b;
-    font-size:27px
+h2 {
+    color: #1b1b1b;
+    font-size: 27px
 }
 
-h3{ color: #382f2f;
-    font-size:20px;
-}
-
-p{ 
+h3 {
     color: #382f2f;
-    font-size:15px; 
+    font-size: 20px;
+}
+
+p {
+    color: #382f2f;
+    font-size: 15px;
 }

@@ -20,5 +20,4 @@ const setRefresh = (cookieInfo) => {
     })
 }
 
-
 export { setToken, setRefresh }
