@@ -9,7 +9,7 @@ app.use(cors({
 app.use(express.json())
 app.use(router)
 
-app.listen(3030, () =>
-  console.log('🔥 server ready at: http://localhost:3030 😨',
+app.listen(process.env.PORT, () =>
+  console.log('🔥 server ready ',
   )
 )
