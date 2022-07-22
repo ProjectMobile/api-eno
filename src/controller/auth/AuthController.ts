@@ -30,7 +30,7 @@ class AuthController {
             const id = user.id;
 
             const token = sign({ id }, authToken.secret, {
-                expiresIn: authToken.expiresIn
+                expiresIn: refreshToken.expiresIn
             })
 
             const refreshT = sign({ id }, refreshToken.secret, {
